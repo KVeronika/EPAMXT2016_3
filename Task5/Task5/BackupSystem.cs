@@ -40,16 +40,25 @@ namespace Task5
 
         public static void TrackChanges(string path)
         {
-            FileSystemWatcher watcher = new FileSystemWatcher(path, "*.txt");
-            watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
-               | NotifyFilters.FileName | NotifyFilters.DirectoryName;
-            watcher.IncludeSubdirectories = true;
-            watcher.Changed += new FileSystemEventHandler(OnChanged);
-            watcher.Created += new FileSystemEventHandler(OnCreateOrDelete);
-            watcher.Deleted += new FileSystemEventHandler(OnCreateOrDelete);
-            watcher.Renamed += new RenamedEventHandler(OnRenamed);
+            FileSystemWatcher fileWatcher = new FileSystemWatcher(path, "*.txt");
+            fileWatcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
+               | NotifyFilters.FileName;
+            fileWatcher.IncludeSubdirectories = true;
+            fileWatcher.Changed += new FileSystemEventHandler(OnChanged);
+            fileWatcher.Created += new FileSystemEventHandler(OnCreateOrDelete);
+            fileWatcher.Deleted += new FileSystemEventHandler(OnCreateOrDelete);
+            fileWatcher.Renamed += new RenamedEventHandler(OnRenamed);
 
-            watcher.EnableRaisingEvents = true;
+            FileSystemWatcher folderWatcher = new FileSystemWatcher(path);
+            folderWatcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
+                | NotifyFilters.DirectoryName;
+            folderWatcher.IncludeSubdirectories = true;
+            folderWatcher.Created += new FileSystemEventHandler(OnCreateOrDelete);
+            folderWatcher.Deleted += new FileSystemEventHandler(OnCreateOrDelete);
+            folderWatcher.Renamed += new RenamedEventHandler(OnRenamed);
+
+            fileWatcher.EnableRaisingEvents = true;
+            folderWatcher.EnableRaisingEvents = true;
             Console.WriteLine("Press \'q\' to quit the sample.");
             while (Console.Read() != 'q') ;
         }
@@ -82,19 +91,44 @@ namespace Task5
                         }
                     case "Created":
                         {
-                            File.Create(item.NewPathToFile).Close();
-                            break;
+                            if (item.TypeOfObject.Equals("File"))
+                            {
+                                File.Create(item.NewPathToFile).Close();
+                                break;
+                            }
+                            else
+                            {
+                                Directory.CreateDirectory(item.NewPathToFile);
+                                break;
+                            }
                         }
                     case "Deleted":
                         {
-                            File.Delete(item.NewPathToFile);
-                            break;
+                            if (item.TypeOfObject.Equals("File"))
+                            {
+                                File.Delete(item.NewPathToFile);
+                                break;
+                            }
+                            else
+                            {
+                                Directory.Delete(item.NewPathToFile, true);
+                                break;
+                            }
                         }
                     case "Renamed":
                         {
-                            File.Delete(item.OldPathToFile);
-                            File.Create(item.NewPathToFile).Close();
-                            break;
+                            if (item.TypeOfObject.Equals("File"))
+                            {
+                                File.Delete(item.OldPathToFile);
+                                File.Create(item.NewPathToFile).Close();
+                                break;
+                            }
+                            else
+                            {
+                                Directory.Delete(item.OldPathToFile, true);
+                                Directory.CreateDirectory(item.NewPathToFile);
+                                break;
+                            }
                         }
                     default:
                         break;
@@ -104,7 +138,7 @@ namespace Task5
 
         private static void OnChanged(object source, FileSystemEventArgs e)
         {
-            if (!(source is Directory))
+            if (!Directory.Exists(e.FullPath))
             {
                 countOfChangeEvent++;
                 if (countOfChangeEvent % 2 == 0)
@@ -114,7 +148,7 @@ namespace Task5
                     string logGuid = Guid.NewGuid().ToString();
                     using (StreamWriter logFile = new StreamWriter(LogFilePath, true))
                     {
-                        logFile.WriteLine($"{dateForLog}|{e.ChangeType}|{e.FullPath}|{logGuid}");
+                        logFile.WriteLine($"{dateForLog}|File|{e.ChangeType}|{e.FullPath}|{logGuid}");
                     }
 
                     string nameFile = ($"{dateForLog}_{logGuid}.txt");
@@ -133,8 +167,16 @@ namespace Task5
             using (StreamWriter logFile = new StreamWriter(LogFilePath, true))
             {
                 DateTime dateTimeOfChange = DateTime.Now;
-                string dateForLog = ($"{dateTimeOfChange.Month}-{dateTimeOfChange.Day}-{dateTimeOfChange.Year}_{dateTimeOfChange.Hour}-{dateTimeOfChange.Minute}-{dateTimeOfChange.Second}");
-                logFile.WriteLine($"{dateForLog}|{e.ChangeType}|{e.FullPath}|{Guid.NewGuid()}");
+                if ((source as FileSystemWatcher).NotifyFilter.HasFlag(NotifyFilters.FileName))
+                {
+                    string dateForLog = ($"{dateTimeOfChange.Month}-{dateTimeOfChange.Day}-{dateTimeOfChange.Year}_{dateTimeOfChange.Hour}-{dateTimeOfChange.Minute}-{dateTimeOfChange.Second}");
+                    logFile.WriteLine($"{dateForLog}|File|{e.ChangeType}|{e.FullPath}|{Guid.NewGuid()}");
+                }
+                else
+                {
+                    string dateForLog = ($"{dateTimeOfChange.Month}-{dateTimeOfChange.Day}-{dateTimeOfChange.Year}_{dateTimeOfChange.Hour}-{dateTimeOfChange.Minute}-{dateTimeOfChange.Second}");
+                    logFile.WriteLine($"{dateForLog}|Folder|{e.ChangeType}|{e.FullPath}|{Guid.NewGuid()}");
+                }
             }
         }
 
@@ -143,8 +185,16 @@ namespace Task5
             using (StreamWriter logFile = new StreamWriter(LogFilePath, true))
             {
                 DateTime dateTimeOfChange = DateTime.Now;
-                string dateForLog = ($"{dateTimeOfChange.Month}-{dateTimeOfChange.Day}-{dateTimeOfChange.Year}_{dateTimeOfChange.Hour}-{dateTimeOfChange.Minute}-{dateTimeOfChange.Second}");
-                logFile.WriteLine($"{dateForLog}|{e.ChangeType}|{e.OldFullPath}|{e.FullPath}|{Guid.NewGuid()}");
+                if ((source as FileSystemWatcher).NotifyFilter.HasFlag(NotifyFilters.FileName))
+                {
+                    string dateForLog = ($"{dateTimeOfChange.Month}-{dateTimeOfChange.Day}-{dateTimeOfChange.Year}_{dateTimeOfChange.Hour}-{dateTimeOfChange.Minute}-{dateTimeOfChange.Second}");
+                    logFile.WriteLine($"{dateForLog}|File|{e.ChangeType}|{e.OldFullPath}|{e.FullPath}|{Guid.NewGuid()}");
+                }
+                else
+                {
+                    string dateForLog = ($"{dateTimeOfChange.Month}-{dateTimeOfChange.Day}-{dateTimeOfChange.Year}_{dateTimeOfChange.Hour}-{dateTimeOfChange.Minute}-{dateTimeOfChange.Second}");
+                    logFile.WriteLine($"{dateForLog}|Folder|{e.ChangeType}|{e.OldFullPath}|{e.FullPath}|{Guid.NewGuid()}");
+                }
             }
         }
 
