@@ -1,0 +1,6 @@
+D:\XT2016_3\Tasks\Task2\Task2.5\bin\Debug\Task2.5.exe.config
+D:\XT2016_3\Tasks\Task2\Task2.5\bin\Debug\Task2.5.exe
+D:\XT2016_3\Tasks\Task2\Task2.5\bin\Debug\Task2.5.pdb
+D:\XT2016_3\Tasks\Task2\Task2.5\obj\Debug\Task2.5.csprojResolveAssemblyReference.cache
+D:\XT2016_3\Tasks\Task2\Task2.5\obj\Debug\Task2.5.exe
+D:\XT2016_3\Tasks\Task2\Task2.5\obj\Debug\Task2.5.pdb

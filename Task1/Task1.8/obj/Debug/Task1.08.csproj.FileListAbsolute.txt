@@ -1,0 +1,5 @@
+D:\XT2016_3\Tasks\Task1\Task1.8\bin\Debug\Task1.8.exe.config
+D:\XT2016_3\Tasks\Task1\Task1.8\obj\Debug\Task1.8.exe
+D:\XT2016_3\Tasks\Task1\Task1.8\obj\Debug\Task1.8.pdb
+D:\XT2016_3\Tasks\Task1\Task1.8\bin\Debug\Task1.8.exe
+D:\XT2016_3\Tasks\Task1\Task1.8\bin\Debug\Task1.8.pdb

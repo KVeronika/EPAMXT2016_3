@@ -1,0 +1,5 @@
+D:\XT2016_3\Tasks\Task4\Task4.5\bin\Release\Task4.5.exe.config
+D:\XT2016_3\Tasks\Task4\Task4.5\bin\Release\Task4.5.exe
+D:\XT2016_3\Tasks\Task4\Task4.5\bin\Release\Task4.5.pdb
+D:\XT2016_3\Tasks\Task4\Task4.5\obj\Release\Task4.5.exe
+D:\XT2016_3\Tasks\Task4\Task4.5\obj\Release\Task4.5.pdb

@@ -1,0 +1,12 @@
+D:\XT2016_3\Task1\Task1.10\bin\Debug\Task1.10.exe.config
+D:\XT2016_3\Task1\Task1.10\bin\Debug\Task1.10.exe
+D:\XT2016_3\Task1\Task1.10\bin\Debug\Task1.10.pdb
+D:\XT2016_3\Task1\Task1.10\obj\Debug\Task1.10.exe
+D:\XT2016_3\Task1\Task1.10\obj\Debug\Task1.10.pdb
+D:\XT2016_3\Task1\Task1.10\obj\Debug\Task1.10.csprojResolveAssemblyReference.cache
+D:\XT2016_3\Tasks\Task1\Task1.10\bin\Debug\Task1.10.exe.config
+D:\XT2016_3\Tasks\Task1\Task1.10\obj\Debug\Task1.10.exe
+D:\XT2016_3\Tasks\Task1\Task1.10\obj\Debug\Task1.10.pdb
+D:\XT2016_3\Tasks\Task1\Task1.10\bin\Debug\Task1.10.exe
+D:\XT2016_3\Tasks\Task1\Task1.10\bin\Debug\Task1.10.pdb
+D:\XT2016_3\Tasks\Task1\Task1.10\obj\Debug\Task1.10.csprojResolveAssemblyReference.cache
