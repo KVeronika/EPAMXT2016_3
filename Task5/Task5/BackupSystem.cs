@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 
 namespace Task5
 {
     public class BackupSystem
     {
-        public static int countOfChangeEvent = 0;
         public static string LogFilePath { get; set; }
         public static string CopiedFolderPath { get; set; }
         public static string utilityFolder = @"C:\Users\Veronika\Desktop\Task5";
@@ -59,6 +59,10 @@ namespace Task5
 
             fileWatcher.EnableRaisingEvents = true;
             folderWatcher.EnableRaisingEvents = true;
+            fileWatcher.InternalBufferSize = 1024 * 1024;
+            
+            fileWatcher.InternalBufferSize = 1024 * 1024;
+
             Console.WriteLine("Press \'q\' to quit the sample.");
             while (Console.Read() != 'q') ;
         }
@@ -138,62 +142,94 @@ namespace Task5
 
         private static void OnChanged(object source, FileSystemEventArgs e)
         {
-            if (!Directory.Exists(e.FullPath))
+            bool flag = true;
+            while (flag)
             {
-                countOfChangeEvent++;
-                if (countOfChangeEvent % 2 == 0)
+                try
                 {
-                    DateTime dateTimeOfChange = DateTime.Now;
-                    string dateForLog = ($"{dateTimeOfChange.Month}-{dateTimeOfChange.Day}-{dateTimeOfChange.Year}_{dateTimeOfChange.Hour}-{dateTimeOfChange.Minute}-{dateTimeOfChange.Second}");
-                    string logGuid = Guid.NewGuid().ToString();
-                    using (StreamWriter logFile = new StreamWriter(LogFilePath, true))
+                    if (!Directory.Exists(e.FullPath))
                     {
-                        logFile.WriteLine($"{dateForLog}|File|{e.ChangeType}|{e.FullPath}|{logGuid}");
-                    }
+                        DateTime dateTimeOfChange = DateTime.Now;
+                        string dateForLog = dateTimeOfChange.ToString("MM-dd-yyyy_HH-mm-ss");
+                        string logGuid = Guid.NewGuid().ToString();
+                        using (StreamWriter logFile = new StreamWriter(LogFilePath, true))
+                        {
+                            logFile.WriteLine($"{dateForLog}|File|{e.ChangeType}|{e.FullPath}|{logGuid}");
+                        }
 
-                    string nameFile = ($"{dateForLog}_{logGuid}.txt");
-                    string pathToCopy = Path.Combine(folderForCopyFiles, nameFile);
-                    File.Copy(e.FullPath, pathToCopy);
+                        string nameFile = ($"{dateForLog}_{logGuid}.txt");
+                        string pathToCopy = Path.Combine(folderForCopyFiles, nameFile);
+                        File.Copy(e.FullPath, pathToCopy);
+                        flag = false;
+                    }
                 }
-            }
-            else
-            {
-                return;
+                catch
+                {
+                    Thread.Sleep(1);
+                }
             }
         }
 
         private static void OnCreateOrDelete(object source, FileSystemEventArgs e)
         {
-            using (StreamWriter logFile = new StreamWriter(LogFilePath, true))
+            bool flag = true;
+            while (flag)
             {
-                DateTime dateTimeOfChange = DateTime.Now;
-                if ((source as FileSystemWatcher).NotifyFilter.HasFlag(NotifyFilters.FileName))
+                try
                 {
-                    string dateForLog = ($"{dateTimeOfChange.Month}-{dateTimeOfChange.Day}-{dateTimeOfChange.Year}_{dateTimeOfChange.Hour}-{dateTimeOfChange.Minute}-{dateTimeOfChange.Second}");
-                    logFile.WriteLine($"{dateForLog}|File|{e.ChangeType}|{e.FullPath}|{Guid.NewGuid()}");
+                    DateTime dateTimeOfChange = DateTime.Now;
+                    string dateForLog = dateTimeOfChange.ToString("MM-dd-yyyy_HH-mm-ss");
+                    if ((source as FileSystemWatcher).NotifyFilter.HasFlag(NotifyFilters.FileName))
+                    {
+                        using (StreamWriter logFile = new StreamWriter(LogFilePath, true))
+                        {
+                            logFile.WriteLine($"{dateForLog}|File|{e.ChangeType}|{e.FullPath}|{Guid.NewGuid()}");
+                        }
+                    }
+                    else
+                    {
+                        using (StreamWriter logFile = new StreamWriter(LogFilePath, true))
+                        {
+                            logFile.WriteLine($"{dateForLog}|Folder|{e.ChangeType}|{e.FullPath}|{Guid.NewGuid()}");
+                        }
+                    }
+                        flag = false;
                 }
-                else
+                catch
                 {
-                    string dateForLog = ($"{dateTimeOfChange.Month}-{dateTimeOfChange.Day}-{dateTimeOfChange.Year}_{dateTimeOfChange.Hour}-{dateTimeOfChange.Minute}-{dateTimeOfChange.Second}");
-                    logFile.WriteLine($"{dateForLog}|Folder|{e.ChangeType}|{e.FullPath}|{Guid.NewGuid()}");
+                    Thread.Sleep(1);
                 }
             }
         }
 
         private static void OnRenamed(object source, RenamedEventArgs e)
         {
-            using (StreamWriter logFile = new StreamWriter(LogFilePath, true))
+            bool flag = true;
+            while(flag)
             {
-                DateTime dateTimeOfChange = DateTime.Now;
-                if ((source as FileSystemWatcher).NotifyFilter.HasFlag(NotifyFilters.FileName))
+                try
                 {
-                    string dateForLog = ($"{dateTimeOfChange.Month}-{dateTimeOfChange.Day}-{dateTimeOfChange.Year}_{dateTimeOfChange.Hour}-{dateTimeOfChange.Minute}-{dateTimeOfChange.Second}");
-                    logFile.WriteLine($"{dateForLog}|File|{e.ChangeType}|{e.OldFullPath}|{e.FullPath}|{Guid.NewGuid()}");
+                    DateTime dateTimeOfChange = DateTime.Now;
+                    string dateForLog = dateTimeOfChange.ToString("MM-dd-yyyy_HH-mm-ss");
+                    if ((source as FileSystemWatcher).NotifyFilter.HasFlag(NotifyFilters.FileName))
+                    {
+                        using (StreamWriter logFile = new StreamWriter(LogFilePath, true))
+                        {
+                            logFile.WriteLine($"{dateForLog}|File|{e.ChangeType}|{e.OldFullPath}|{e.FullPath}|{Guid.NewGuid()}");
+                        }
+                    }
+                    else
+                    {
+                        using (StreamWriter logFile = new StreamWriter(LogFilePath, true))
+                        {
+                            logFile.WriteLine($"{dateForLog}|Folder|{e.ChangeType}|{e.OldFullPath}|{e.FullPath}|{Guid.NewGuid()}");
+                        }
+                    }
+                        flag = false;
                 }
-                else
+                catch
                 {
-                    string dateForLog = ($"{dateTimeOfChange.Month}-{dateTimeOfChange.Day}-{dateTimeOfChange.Year}_{dateTimeOfChange.Hour}-{dateTimeOfChange.Minute}-{dateTimeOfChange.Second}");
-                    logFile.WriteLine($"{dateForLog}|Folder|{e.ChangeType}|{e.OldFullPath}|{e.FullPath}|{Guid.NewGuid()}");
+                    Thread.Sleep(1);
                 }
             }
         }

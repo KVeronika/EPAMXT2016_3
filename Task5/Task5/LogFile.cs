@@ -43,7 +43,7 @@ namespace Task5
         public static LogFile ParseLog(string line)
         {
             string[] array = line.Split('|');
-            if (array[1] != "Renamed")
+            if (array[2] != "Renamed")
             {
                 return new LogFile(array[0], array[1], array[2], array[3], array[4]);
             }
@@ -55,7 +55,7 @@ namespace Task5
 
         public static string DateFromLogToString(DateTime date)
         {
-            return ($"{date.Month}-{date.Day}-{date.Year}_{date.Hour}-{date.Minute}-{date.Second}");
+            return date.ToString("MM-dd-yyyy_HH-mm-ss");
         }
     }
 }
