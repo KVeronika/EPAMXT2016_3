@@ -4,3 +4,6 @@ D:\XT2016_3\Tasks\Task5\Task5\bin\Debug\Task5.pdb
 D:\XT2016_3\Tasks\Task5\Task5\obj\Debug\Task5.csprojResolveAssemblyReference.cache
 D:\XT2016_3\Tasks\Task5\Task5\obj\Debug\Task5.exe
 D:\XT2016_3\Tasks\Task5\Task5\obj\Debug\Task5.pdb
+C:\Users\Veronika\Desktop\EPAM\EPAMXT2016_3\Task5\Task5\bin\Debug\Task5.exe.config
+C:\Users\Veronika\Desktop\EPAM\EPAMXT2016_3\Task5\Task5\obj\Debug\Task5.exe
+C:\Users\Veronika\Desktop\EPAM\EPAMXT2016_3\Task5\Task5\obj\Debug\Task5.pdb
