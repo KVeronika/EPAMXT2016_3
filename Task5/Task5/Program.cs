@@ -2,6 +2,8 @@
 using System.Globalization;
 using System.Threading;
 
+using System.Configuration;
+
 namespace Task5
 {
     public class Program
@@ -24,8 +26,17 @@ namespace Task5
                 case "2":
                     {
                         Console.WriteLine("Enter date and time");
-                        DateTime dateAndTime = DateTime.Parse(Console.ReadLine());
-                        BackupSystem.Backup(trackingFolderPath, dateAndTime);
+                        try
+                        {
+                            DateTime dateAndTime = DateTime.Parse(Console.ReadLine());
+                            BackupSystem.Backup(trackingFolderPath, dateAndTime);
+                        }
+                        catch(Exception e)
+                        {
+                            Console.WriteLine(e.Message);
+                            Console.WriteLine("Please, try it again");
+                            break;
+                        }
                         break;
                     }
                 default:

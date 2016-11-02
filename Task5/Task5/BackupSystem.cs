@@ -10,14 +10,12 @@ namespace Task5
     {
         public static string LogFilePath { get; set; }
         public static string CopiedFolderPath { get; set; }
-        public static string utilityFolder = @"C:\Users\Veronika\Desktop\Task5";
-        public static string folderForCopyFiles = @"C:\Users\Veronika\Desktop\Task5\CopyOfFiles";
 
         private BackupSystem(string trackingDirectory)
         {
             DirectoryInfo trackingDir = new DirectoryInfo(trackingDirectory);
-            LogFilePath = Path.Combine(utilityFolder, "log.txt");
-            CopiedFolderPath = Path.Combine(utilityFolder, trackingDir.Name);
+            LogFilePath = Path.Combine(SettingsFromConfig.ReadSetting(Constants.utilityFolderKey), "log.txt");
+            CopiedFolderPath = Path.Combine(SettingsFromConfig.ReadSetting(Constants.utilityFolderKey), trackingDir.Name);
         }
 
         public static void PrepareForTracking(string trackingDirectory)
@@ -32,36 +30,16 @@ namespace Task5
             {
                 File.Create(LogFilePath).Close();
             }
-            if (!Directory.Exists(folderForCopyFiles))
+            if (!Directory.Exists(SettingsFromConfig.ReadSetting(Constants.folderForCopyFilesKey)))
             {
-                Directory.CreateDirectory(folderForCopyFiles);
+                Directory.CreateDirectory(SettingsFromConfig.ReadSetting(Constants.folderForCopyFilesKey));
             }
         }
 
         public static void TrackChanges(string path)
         {
-            FileSystemWatcher fileWatcher = new FileSystemWatcher(path, "*.txt");
-            fileWatcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
-               | NotifyFilters.FileName;
-            fileWatcher.IncludeSubdirectories = true;
-            fileWatcher.Changed += new FileSystemEventHandler(OnChanged);
-            fileWatcher.Created += new FileSystemEventHandler(OnCreateOrDelete);
-            fileWatcher.Deleted += new FileSystemEventHandler(OnCreateOrDelete);
-            fileWatcher.Renamed += new RenamedEventHandler(OnRenamed);
-
-            FileSystemWatcher folderWatcher = new FileSystemWatcher(path);
-            folderWatcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
-                | NotifyFilters.DirectoryName;
-            folderWatcher.IncludeSubdirectories = true;
-            folderWatcher.Created += new FileSystemEventHandler(OnCreateOrDelete);
-            folderWatcher.Deleted += new FileSystemEventHandler(OnCreateOrDelete);
-            folderWatcher.Renamed += new RenamedEventHandler(OnRenamed);
-
-            fileWatcher.EnableRaisingEvents = true;
-            folderWatcher.EnableRaisingEvents = true;
-            fileWatcher.InternalBufferSize = 1024 * 1024;
-            
-            fileWatcher.InternalBufferSize = 1024 * 1024;
+            InitializeFileWatcher(path);
+            InitializeFolderWatcher(path);
 
             Console.WriteLine("Press \'q\' to quit the sample.");
             while (Console.Read() != 'q') ;
@@ -87,15 +65,14 @@ namespace Task5
                 {
                     case "Changed":
                         {
-                            File.Delete(item.NewPathToFile);
                             string nameSourceFile = ($"{LogFile.DateFromLogToString(item.TimeOfChanges)}_{item.LogGuide}.txt");
-                            string soursePath = Path.Combine(folderForCopyFiles, nameSourceFile);
-                            File.Copy(soursePath, item.NewPathToFile);
+                            string soursePath = Path.Combine(SettingsFromConfig.ReadSetting(Constants.folderForCopyFilesKey), nameSourceFile);
+                            File.Copy(soursePath, item.NewPathToFile, true);
                             break;
                         }
                     case "Created":
                         {
-                            if (item.TypeOfObject.Equals("File"))
+                            if (item.TypeOfObject == Constants.isFileFlag)
                             {
                                 File.Create(item.NewPathToFile).Close();
                                 break;
@@ -108,7 +85,7 @@ namespace Task5
                         }
                     case "Deleted":
                         {
-                            if (item.TypeOfObject.Equals("File"))
+                            if (item.TypeOfObject == Constants.isFileFlag)
                             {
                                 File.Delete(item.NewPathToFile);
                                 break;
@@ -121,7 +98,7 @@ namespace Task5
                         }
                     case "Renamed":
                         {
-                            if (item.TypeOfObject.Equals("File"))
+                            if (item.TypeOfObject == Constants.isFileFlag)
                             {
                                 File.Delete(item.OldPathToFile);
                                 File.Create(item.NewPathToFile).Close();
@@ -142,25 +119,24 @@ namespace Task5
 
         private static void OnChanged(object source, FileSystemEventArgs e)
         {
-            bool flag = true;
-            while (flag)
+            while (true)
             {
                 try
                 {
                     if (!Directory.Exists(e.FullPath))
                     {
                         DateTime dateTimeOfChange = DateTime.Now;
-                        string dateForLog = dateTimeOfChange.ToString("MM-dd-yyyy_HH-mm-ss");
+                        string dateForLog = dateTimeOfChange.ToString(Constants.dateFormat);
                         string logGuid = Guid.NewGuid().ToString();
                         using (StreamWriter logFile = new StreamWriter(LogFilePath, true))
                         {
-                            logFile.WriteLine($"{dateForLog}|File|{e.ChangeType}|{e.FullPath}|{logGuid}");
+                            logFile.WriteLine($"{dateForLog}|0|{e.ChangeType}|{e.FullPath}|{logGuid}");
                         }
 
                         string nameFile = ($"{dateForLog}_{logGuid}.txt");
-                        string pathToCopy = Path.Combine(folderForCopyFiles, nameFile);
+                        string pathToCopy = Path.Combine(SettingsFromConfig.ReadSetting(Constants.folderForCopyFilesKey), nameFile);
                         File.Copy(e.FullPath, pathToCopy);
-                        flag = false;
+                        return;
                     }
                 }
                 catch
@@ -172,28 +148,27 @@ namespace Task5
 
         private static void OnCreateOrDelete(object source, FileSystemEventArgs e)
         {
-            bool flag = true;
-            while (flag)
+            while (true)
             {
                 try
                 {
                     DateTime dateTimeOfChange = DateTime.Now;
-                    string dateForLog = dateTimeOfChange.ToString("MM-dd-yyyy_HH-mm-ss");
+                    string dateForLog = dateTimeOfChange.ToString(Constants.dateFormat);
                     if ((source as FileSystemWatcher).NotifyFilter.HasFlag(NotifyFilters.FileName))
                     {
                         using (StreamWriter logFile = new StreamWriter(LogFilePath, true))
                         {
-                            logFile.WriteLine($"{dateForLog}|File|{e.ChangeType}|{e.FullPath}|{Guid.NewGuid()}");
+                            logFile.WriteLine($"{dateForLog}|0|{e.ChangeType}|{e.FullPath}|{Guid.NewGuid()}");
                         }
                     }
                     else
                     {
                         using (StreamWriter logFile = new StreamWriter(LogFilePath, true))
                         {
-                            logFile.WriteLine($"{dateForLog}|Folder|{e.ChangeType}|{e.FullPath}|{Guid.NewGuid()}");
+                            logFile.WriteLine($"{dateForLog}|1|{e.ChangeType}|{e.FullPath}|{Guid.NewGuid()}");
                         }
                     }
-                        flag = false;
+                    return;
                 }
                 catch
                 {
@@ -204,34 +179,60 @@ namespace Task5
 
         private static void OnRenamed(object source, RenamedEventArgs e)
         {
-            bool flag = true;
-            while(flag)
+            while(true)
             {
                 try
                 {
                     DateTime dateTimeOfChange = DateTime.Now;
-                    string dateForLog = dateTimeOfChange.ToString("MM-dd-yyyy_HH-mm-ss");
+                    string dateForLog = dateTimeOfChange.ToString(Constants.dateFormat);
                     if ((source as FileSystemWatcher).NotifyFilter.HasFlag(NotifyFilters.FileName))
                     {
                         using (StreamWriter logFile = new StreamWriter(LogFilePath, true))
                         {
-                            logFile.WriteLine($"{dateForLog}|File|{e.ChangeType}|{e.OldFullPath}|{e.FullPath}|{Guid.NewGuid()}");
+                            logFile.WriteLine($"{dateForLog}|0|{e.ChangeType}|{e.OldFullPath}|{e.FullPath}|{Guid.NewGuid()}");
                         }
                     }
                     else
                     {
                         using (StreamWriter logFile = new StreamWriter(LogFilePath, true))
                         {
-                            logFile.WriteLine($"{dateForLog}|Folder|{e.ChangeType}|{e.OldFullPath}|{e.FullPath}|{Guid.NewGuid()}");
+                            logFile.WriteLine($"{dateForLog}|1|{e.ChangeType}|{e.OldFullPath}|{e.FullPath}|{Guid.NewGuid()}");
                         }
                     }
-                        flag = false;
+                    return;
                 }
                 catch
                 {
                     Thread.Sleep(1);
                 }
             }
+        }
+
+        private static void InitializeFolderWatcher(string path)
+        {
+            FileSystemWatcher folderWatcher = new FileSystemWatcher(path);
+            folderWatcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
+                | NotifyFilters.DirectoryName;
+            folderWatcher.Created += new FileSystemEventHandler(OnCreateOrDelete);
+            folderWatcher.Deleted += new FileSystemEventHandler(OnCreateOrDelete);
+            folderWatcher.Renamed += new RenamedEventHandler(OnRenamed);
+            folderWatcher.IncludeSubdirectories = true;
+            folderWatcher.EnableRaisingEvents = true;
+            folderWatcher.InternalBufferSize = 1024 * 1024;
+        }
+
+        private static void InitializeFileWatcher(string path)
+        {
+            FileSystemWatcher fileWatcher = new FileSystemWatcher(path, "*.txt");
+            fileWatcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
+               | NotifyFilters.FileName;
+            fileWatcher.Changed += new FileSystemEventHandler(OnChanged);
+            fileWatcher.Created += new FileSystemEventHandler(OnCreateOrDelete);
+            fileWatcher.Deleted += new FileSystemEventHandler(OnCreateOrDelete);
+            fileWatcher.Renamed += new RenamedEventHandler(OnRenamed);
+            fileWatcher.IncludeSubdirectories = true;
+            fileWatcher.EnableRaisingEvents = true;
+            fileWatcher.InternalBufferSize = 1024 * 1024;
         }
 
         private static void CopyFilesAndFolders(string trackingDirectory, string copiedDirectory)

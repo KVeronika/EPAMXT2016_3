@@ -10,9 +10,9 @@ namespace Task5
         public string NewPathToFile { get; set; }
         public string OldPathToFile { get; set; }
         public string LogGuide { get; set; }
-        public string TypeOfObject { get; set; }
+        public int TypeOfObject { get; set; }
 
-        public LogFile(string dateAndTime, string typeOfObject, string typeOfChanges, string path, string logGuide)
+        public LogFile(string dateAndTime, int typeOfObject, string typeOfChanges, string path, string logGuide)
         {
             this.TimeOfChanges = ParseDate(dateAndTime);
             this.TypeOfChanges = typeOfChanges;
@@ -21,7 +21,7 @@ namespace Task5
             this.TypeOfObject = typeOfObject;
         }
 
-        public LogFile(string dateAndTime, string typeOfObject, string typeOfChanges, string oldPath, string newPath, string logGuide)
+        public LogFile(string dateAndTime, int typeOfObject, string typeOfChanges, string oldPath, string newPath, string logGuide)
             : this(dateAndTime, typeOfObject, typeOfChanges, newPath, logGuide)
         {
             this.OldPathToFile = oldPath;
@@ -37,25 +37,33 @@ namespace Task5
             }
             arr[0].Replace('-', '/');
             arr[1].Replace('-', ':');
-            return DateTime.Parse(arr[0].ToString() + " " + arr[1].ToString());
+            return DateTime.Parse($"{arr[0].ToString()} {arr[1].ToString()}");
         }
 
         public static LogFile ParseLog(string line)
         {
             string[] array = line.Split('|');
-            if (array[2] != "Renamed")
+            string dateAndTime = array[0];
+            int typeOfObject = int.Parse(array[1]);
+            string typeOfChanges = array[2];
+            if (typeOfChanges != "Renamed")
             {
-                return new LogFile(array[0], array[1], array[2], array[3], array[4]);
+                string path = array[3];
+                string logGuide = array[4];
+                return new LogFile(dateAndTime, typeOfObject, typeOfChanges, path, logGuide);
             }
             else
             {
-                return new LogFile(array[0], array[1], array[2], array[3], array[4], array[5]);
+                string oldPath = array[3];
+                string newPath = array[4];
+                string logGuide = array[5];
+                return new LogFile(dateAndTime, typeOfObject, typeOfChanges, oldPath, newPath, logGuide);
             }
         }
 
         public static string DateFromLogToString(DateTime date)
         {
-            return date.ToString("MM-dd-yyyy_HH-mm-ss");
+            return date.ToString(Constants.dateFormat);
         }
     }
 }
