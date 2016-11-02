@@ -8,27 +8,17 @@ namespace Task5
 {
     public class BackupSystem
     {
-        public static string LogFilePath { get; set; }
-        public static string CopiedFolderPath { get; set; }
-
-        private BackupSystem(string trackingDirectory)
-        {
-            DirectoryInfo trackingDir = new DirectoryInfo(trackingDirectory);
-            LogFilePath = Path.Combine(SettingsFromConfig.ReadSetting(Constants.utilityFolderKey), "log.txt");
-            CopiedFolderPath = Path.Combine(SettingsFromConfig.ReadSetting(Constants.utilityFolderKey), trackingDir.Name);
-        }
-
+        public static Logger logger = new Logger();
         public static void PrepareForTracking(string trackingDirectory)
         {
-            BackupSystem backup = new BackupSystem(trackingDirectory);
-            if (!Directory.Exists(CopiedFolderPath))
+            if (!Directory.Exists(Constants.CopiedFolderPath))
             {
-                Directory.CreateDirectory(CopiedFolderPath);
-                CopyFilesAndFolders(trackingDirectory, CopiedFolderPath);
+                Directory.CreateDirectory(Constants.CopiedFolderPath);
+                CopyFilesAndFolders(trackingDirectory, Constants.CopiedFolderPath);
             }
-            if (!File.Exists(LogFilePath))
+            if (!File.Exists(Constants.LogFilePath))
             {
-                File.Create(LogFilePath).Close();
+                File.Create(Constants.LogFilePath).Close();
             }
             if (!Directory.Exists(SettingsFromConfig.ReadSetting(Constants.folderForCopyFilesKey)))
             {
@@ -48,16 +38,9 @@ namespace Task5
         public static void Backup(string trackingFolderPath, DateTime dateAndTime)
         {
             ClearTrackingFolder(trackingFolderPath);
-            CopyFilesAndFolders(CopiedFolderPath, trackingFolderPath);
-            List<LogFile> logItems = new List<LogFile>();
-            using (StreamReader logFile = new StreamReader(LogFilePath))
-            {
-                string line;
-                while ((line = logFile.ReadLine()) != null)
-                {
-                    logItems.Add(LogFile.ParseLog(line));
-                }
-            }
+            CopyFilesAndFolders(Constants.CopiedFolderPath, trackingFolderPath);
+            List<LogItem> logItems = Logger.ParseLogFile();
+            Backuper backuper = new Backuper();
             var logLessThanDate = logItems.Where(item => item.TimeOfChanges <= dateAndTime);
             foreach (var item in logLessThanDate)
             {
@@ -65,51 +48,23 @@ namespace Task5
                 {
                     case "Changed":
                         {
-                            string nameSourceFile = ($"{LogFile.DateFromLogToString(item.TimeOfChanges)}_{item.LogGuide}.txt");
-                            string soursePath = Path.Combine(SettingsFromConfig.ReadSetting(Constants.folderForCopyFilesKey), nameSourceFile);
-                            File.Copy(soursePath, item.NewPathToFile, true);
+                            backuper.BackupForChange(item);
                             break;
                         }
                     case "Created":
                         {
-                            if (item.TypeOfObject == Constants.isFileFlag)
-                            {
-                                File.Create(item.NewPathToFile).Close();
-                                break;
-                            }
-                            else
-                            {
-                                Directory.CreateDirectory(item.NewPathToFile);
-                                break;
-                            }
+                            backuper.BackupForCreate(item);
+                            break;
                         }
                     case "Deleted":
                         {
-                            if (item.TypeOfObject == Constants.isFileFlag)
-                            {
-                                File.Delete(item.NewPathToFile);
-                                break;
-                            }
-                            else
-                            {
-                                Directory.Delete(item.NewPathToFile, true);
-                                break;
-                            }
+                            backuper.BackupForDelete(item);
+                            break;
                         }
                     case "Renamed":
                         {
-                            if (item.TypeOfObject == Constants.isFileFlag)
-                            {
-                                File.Delete(item.OldPathToFile);
-                                File.Create(item.NewPathToFile).Close();
-                                break;
-                            }
-                            else
-                            {
-                                Directory.Delete(item.OldPathToFile, true);
-                                Directory.CreateDirectory(item.NewPathToFile);
-                                break;
-                            }
+                            backuper.BackupForRename(item);
+                            break;
                         }
                     default:
                         break;
@@ -128,10 +83,7 @@ namespace Task5
                         DateTime dateTimeOfChange = DateTime.Now;
                         string dateForLog = dateTimeOfChange.ToString(Constants.dateFormat);
                         string logGuid = Guid.NewGuid().ToString();
-                        using (StreamWriter logFile = new StreamWriter(LogFilePath, true))
-                        {
-                            logFile.WriteLine($"{dateForLog}|0|{e.ChangeType}|{e.FullPath}|{logGuid}");
-                        }
+                        logger.WriteChangeOfFile(e, dateForLog, logGuid);
 
                         string nameFile = ($"{dateForLog}_{logGuid}.txt");
                         string pathToCopy = Path.Combine(SettingsFromConfig.ReadSetting(Constants.folderForCopyFilesKey), nameFile);
@@ -156,17 +108,11 @@ namespace Task5
                     string dateForLog = dateTimeOfChange.ToString(Constants.dateFormat);
                     if ((source as FileSystemWatcher).NotifyFilter.HasFlag(NotifyFilters.FileName))
                     {
-                        using (StreamWriter logFile = new StreamWriter(LogFilePath, true))
-                        {
-                            logFile.WriteLine($"{dateForLog}|0|{e.ChangeType}|{e.FullPath}|{Guid.NewGuid()}");
-                        }
+                        logger.WriteCreateOrDeleteFile(e, dateForLog);
                     }
                     else
                     {
-                        using (StreamWriter logFile = new StreamWriter(LogFilePath, true))
-                        {
-                            logFile.WriteLine($"{dateForLog}|1|{e.ChangeType}|{e.FullPath}|{Guid.NewGuid()}");
-                        }
+                        logger.WriteCreateOrDeleteFolder(e, dateForLog);
                     }
                     return;
                 }
@@ -179,7 +125,7 @@ namespace Task5
 
         private static void OnRenamed(object source, RenamedEventArgs e)
         {
-            while(true)
+            while (true)
             {
                 try
                 {
@@ -187,17 +133,11 @@ namespace Task5
                     string dateForLog = dateTimeOfChange.ToString(Constants.dateFormat);
                     if ((source as FileSystemWatcher).NotifyFilter.HasFlag(NotifyFilters.FileName))
                     {
-                        using (StreamWriter logFile = new StreamWriter(LogFilePath, true))
-                        {
-                            logFile.WriteLine($"{dateForLog}|0|{e.ChangeType}|{e.OldFullPath}|{e.FullPath}|{Guid.NewGuid()}");
-                        }
+                        logger.WriteRenameFile(e, dateForLog);
                     }
                     else
                     {
-                        using (StreamWriter logFile = new StreamWriter(LogFilePath, true))
-                        {
-                            logFile.WriteLine($"{dateForLog}|1|{e.ChangeType}|{e.OldFullPath}|{e.FullPath}|{Guid.NewGuid()}");
-                        }
+                        logger.WriteRenameFolder(e, dateForLog);
                     }
                     return;
                 }

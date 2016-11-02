@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Globalization;
-using System.Threading;
-
-using System.Configuration;
 
 namespace Task5
 {
@@ -10,8 +6,7 @@ namespace Task5
     {
         public static void Main()
         {
-            string trackingFolderPath = @"D:\XT2016_3\Tasks\WatchedFolder";
-            BackupSystem.PrepareForTracking(trackingFolderPath);
+            BackupSystem.PrepareForTracking(Constants.TrackingFolderPath);
             Console.WriteLine("If you want to track changes, please press 1");
             Console.WriteLine("If you want to backup folder, please press 2");
             string key = Console.ReadLine();
@@ -20,7 +15,7 @@ namespace Task5
                 case "1":
                     {
                         Console.WriteLine("Program in tracking mode");
-                        BackupSystem.TrackChanges(trackingFolderPath);
+                        BackupSystem.TrackChanges(Constants.TrackingFolderPath);
                         break;
                     }
                 case "2":
@@ -29,9 +24,9 @@ namespace Task5
                         try
                         {
                             DateTime dateAndTime = DateTime.Parse(Console.ReadLine());
-                            BackupSystem.Backup(trackingFolderPath, dateAndTime);
+                            BackupSystem.Backup(Constants.TrackingFolderPath, dateAndTime);
                         }
-                        catch(Exception e)
+                        catch (Exception e)
                         {
                             Console.WriteLine(e.Message);
                             Console.WriteLine("Please, try it again");

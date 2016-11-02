@@ -44,9 +44,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Backuper.cs" />
     <Compile Include="BackupSystem.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="LogFile.cs" />
+    <Compile Include="IBackuper.cs" />
+    <Compile Include="Logger\IFileLogger.cs" />
+    <Compile Include="Logger\IFolderLogger.cs" />
+    <Compile Include="Logger\LogItem.cs" />
+    <Compile Include="Logger\Logger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SettingsFromConfig.cs" />
