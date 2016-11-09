@@ -1,0 +1,7 @@
+D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.LogicContracts\bin\Debug\XT2016_3.UserInfo.LogicContracts.dll
+D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.LogicContracts\bin\Debug\XT2016_3.UserInfo.LogicContracts.pdb
+D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.LogicContracts\bin\Debug\XT2016_3.UserInfo.Entities.dll
+D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.LogicContracts\bin\Debug\XT2016_3.UserInfo.Entities.pdb
+D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.LogicContracts\obj\Debug\XT2016_3.UserInfo.LogicContracts.csprojResolveAssemblyReference.cache
+D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.LogicContracts\obj\Debug\XT2016_3.UserInfo.LogicContracts.dll
+D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.LogicContracts\obj\Debug\XT2016_3.UserInfo.LogicContracts.pdb
