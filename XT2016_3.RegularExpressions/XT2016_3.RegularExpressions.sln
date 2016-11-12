@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XT2016_3.RegularExpressions.1", "XT2016_3.RegularExpressions.1\XT2016_3.RegularExpressions.1.csproj", "{A56899A1-7114-4A9C-8E36-ED9AE12DF5FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XT2016_3.RegularExpressions.2", "XT2016_3.RegularExpressions.2\XT2016_3.RegularExpressions.2.csproj", "{12E7FBBD-28CE-4031-A3AE-E4A3A8873C2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XT2016_3.RegularExpressions.3", "XT2016_3.RegularExpressions.3\XT2016_3.RegularExpressions.3.csproj", "{9C57020A-2E29-47E2-BA5F-17DBF46C502D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XT2016_3.RegularExpressions.4", "XT2016_3.RegularExpressions.4\XT2016_3.RegularExpressions.4.csproj", "{18D460DC-E8DF-4267-89CF-691F4C9A3F83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XT2016_3.RegularExpressions.5", "XT2016_3.RegularExpressions.5\XT2016_3.RegularExpressions.5.csproj", "{9565EB2E-32A1-4181-B49B-B05EC0C8F541}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A56899A1-7114-4A9C-8E36-ED9AE12DF5FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A56899A1-7114-4A9C-8E36-ED9AE12DF5FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A56899A1-7114-4A9C-8E36-ED9AE12DF5FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A56899A1-7114-4A9C-8E36-ED9AE12DF5FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12E7FBBD-28CE-4031-A3AE-E4A3A8873C2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12E7FBBD-28CE-4031-A3AE-E4A3A8873C2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12E7FBBD-28CE-4031-A3AE-E4A3A8873C2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12E7FBBD-28CE-4031-A3AE-E4A3A8873C2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C57020A-2E29-47E2-BA5F-17DBF46C502D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C57020A-2E29-47E2-BA5F-17DBF46C502D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C57020A-2E29-47E2-BA5F-17DBF46C502D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C57020A-2E29-47E2-BA5F-17DBF46C502D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18D460DC-E8DF-4267-89CF-691F4C9A3F83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18D460DC-E8DF-4267-89CF-691F4C9A3F83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18D460DC-E8DF-4267-89CF-691F4C9A3F83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18D460DC-E8DF-4267-89CF-691F4C9A3F83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9565EB2E-32A1-4181-B49B-B05EC0C8F541}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9565EB2E-32A1-4181-B49B-B05EC0C8F541}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9565EB2E-32A1-4181-B49B-B05EC0C8F541}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9565EB2E-32A1-4181-B49B-B05EC0C8F541}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

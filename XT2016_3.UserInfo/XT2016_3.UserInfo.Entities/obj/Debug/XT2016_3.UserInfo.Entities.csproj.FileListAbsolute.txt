@@ -2,3 +2,4 @@ D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.Entities\bin\Debug\XT2016_
 D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.Entities\bin\Debug\XT2016_3.UserInfo.Entities.pdb
 D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.Entities\obj\Debug\XT2016_3.UserInfo.Entities.dll
 D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.Entities\obj\Debug\XT2016_3.UserInfo.Entities.pdb
+D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.Entities\obj\Debug\XT2016_3.UserInfo.Entities.csprojResolveAssemblyReference.cache

@@ -21,22 +21,23 @@ namespace XT2016_3.UserInfo.FileDal
             return true;
         }
 
-        public List<int> GetUserAwards(int userId)
+        public IEnumerable<int> GetUserAwards(int userId)
         {
-            IEnumerable<Tuple<int, int>> usersWithAwards = File.ReadAllLines(this.fileName)
+            var usersWithAwards = File.ReadAllLines(this.fileName)
                 .Select(s => s.Split('|'))
-                .Select(parts => new Tuple<int, int>(int.Parse(parts[0]), int.Parse(parts[1])));
+                .Select(parts => new { UserId = int.Parse(parts[0]), AwardId = int.Parse(parts[1]) });
 
             List<int> awardsOfUser = new List<int>();
 
-            ////awardsOfUser.Add(int.Parse(usersWithAwards.Where(x => x.Item1 == userId).Select(x => x.Item2).ToString()));
-            foreach (var item in usersWithAwards)
-            {
-                if (item.Item1 == userId)
-                {
-                    awardsOfUser.Add(item.Item2);
-                }
-            }
+            awardsOfUser.AddRange(usersWithAwards.Where(x => x.UserId == userId).Select(x => x.AwardId));
+
+            //foreach (var item in usersWithAwards)
+            //{
+            //    if (item.Item1 == userId)
+            //    {
+            //        awardsOfUser.Add(item.Item2);
+            //    }
+            //}
 
             return awardsOfUser;
         }

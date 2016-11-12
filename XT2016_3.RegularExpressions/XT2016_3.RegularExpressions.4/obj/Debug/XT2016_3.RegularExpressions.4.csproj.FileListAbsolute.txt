@@ -1,0 +1,7 @@
+D:\XT2016_3\XT2016_3.RegularExpressions\XT2016_3.RegularExpressions.4\bin\Debug\XT2016_3.RegularExpressions.4.exe.config
+D:\XT2016_3\Tasks\XT2016_3.RegularExpressions\XT2016_3.RegularExpressions.4\bin\Debug\XT2016_3.RegularExpressions.4.exe.config
+D:\XT2016_3\Tasks\XT2016_3.RegularExpressions\XT2016_3.RegularExpressions.4\bin\Debug\XT2016_3.RegularExpressions.4.exe
+D:\XT2016_3\Tasks\XT2016_3.RegularExpressions\XT2016_3.RegularExpressions.4\bin\Debug\XT2016_3.RegularExpressions.4.pdb
+D:\XT2016_3\Tasks\XT2016_3.RegularExpressions\XT2016_3.RegularExpressions.4\obj\Debug\XT2016_3.RegularExpressions.4.csprojResolveAssemblyReference.cache
+D:\XT2016_3\Tasks\XT2016_3.RegularExpressions\XT2016_3.RegularExpressions.4\obj\Debug\XT2016_3.RegularExpressions.4.exe
+D:\XT2016_3\Tasks\XT2016_3.RegularExpressions\XT2016_3.RegularExpressions.4\obj\Debug\XT2016_3.RegularExpressions.4.pdb

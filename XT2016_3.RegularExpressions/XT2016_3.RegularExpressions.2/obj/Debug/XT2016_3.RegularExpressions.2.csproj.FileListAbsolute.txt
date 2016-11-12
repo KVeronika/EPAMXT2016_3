@@ -1,0 +1,10 @@
+D:\XT2016_3\XT2016_3.RegularExpressions\XT2016_3.RegularExpressions.2\bin\Debug\XT2016_3.RegularExpressions.2.exe.config
+D:\XT2016_3\XT2016_3.RegularExpressions\XT2016_3.RegularExpressions.2\bin\Debug\XT2016_3.RegularExpressions.2.exe
+D:\XT2016_3\XT2016_3.RegularExpressions\XT2016_3.RegularExpressions.2\bin\Debug\XT2016_3.RegularExpressions.2.pdb
+D:\XT2016_3\XT2016_3.RegularExpressions\XT2016_3.RegularExpressions.2\obj\Debug\XT2016_3.RegularExpressions.2.exe
+D:\XT2016_3\XT2016_3.RegularExpressions\XT2016_3.RegularExpressions.2\obj\Debug\XT2016_3.RegularExpressions.2.pdb
+D:\XT2016_3\Tasks\XT2016_3.RegularExpressions\XT2016_3.RegularExpressions.2\bin\Debug\XT2016_3.RegularExpressions.2.exe.config
+D:\XT2016_3\Tasks\XT2016_3.RegularExpressions\XT2016_3.RegularExpressions.2\obj\Debug\XT2016_3.RegularExpressions.2.exe
+D:\XT2016_3\Tasks\XT2016_3.RegularExpressions\XT2016_3.RegularExpressions.2\obj\Debug\XT2016_3.RegularExpressions.2.pdb
+D:\XT2016_3\Tasks\XT2016_3.RegularExpressions\XT2016_3.RegularExpressions.2\bin\Debug\XT2016_3.RegularExpressions.2.exe
+D:\XT2016_3\Tasks\XT2016_3.RegularExpressions\XT2016_3.RegularExpressions.2\bin\Debug\XT2016_3.RegularExpressions.2.pdb
