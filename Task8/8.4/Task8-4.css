@@ -1,0 +1,32 @@
+body {
+	background: #333;
+}
+
+.block {
+    position: relative;
+    height: 50px;
+    color: #fff;
+    border: 5px solid #cef;
+    text-align: center;
+    background: #9bd;
+    margin-top: 30px;
+}
+
+.block::before, .block::after {
+    content: "";
+    width: 0;
+    height: 0;
+    bottom: 100%;
+    transform: translateX(-50%);
+    position: absolute;
+}
+
+.block::before {
+    border: 30px solid transparent;
+    border-bottom: 30px solid #cef;
+}
+
+.block::after {
+    border: 23px solid transparent;
+    border-bottom: 23px solid #9bd;
+}

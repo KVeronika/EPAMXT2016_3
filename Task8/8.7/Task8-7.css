@@ -1,0 +1,18 @@
+.block{
+	width: 500px;
+	margin: 30px auto;
+}
+.block > header{
+	background-color: #008b66;
+	padding: 15px;
+	color: #ffffff;
+	margin-bottom: -7px;
+	font-size: 1.1em
+}
+.block > section{
+	background-color: #dfe6e1;
+	width: 450px;
+	margin-left: 29px;
+	padding: 10px;
+	border: 1px solid #ffffff;
+}

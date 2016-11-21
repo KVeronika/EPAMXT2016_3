@@ -1,0 +1,41 @@
+body{ 
+    background: #333; 
+}
+.equalizer > div{
+    background: repeating-linear-gradient(to bottom, transparent, transparent 20px, #333 20px, #333 23px),linear-gradient(to bottom, #ffd059, #ff8c00);
+    width: 40px;
+    display: inline-block;
+    margin-right: 5px;
+    border-radius: 5px 5px 0 0;
+    vertical-align: bottom;
+}
+.eq-1{
+	height: 21px; 
+}
+.eq-2{ 
+    height: 45px; 
+}
+.eq-3{ 
+    height: 68px; 
+}
+.eq-4{ 
+    height: 90px; 
+}
+.eq-5{ 
+    height: 114px;
+}
+.eq-6{ 
+    height: 136px;
+}
+.eq-7{ 
+    height: 159px;
+}
+.eq-8{ 
+    height: 182px;
+}
+.eq-9{ 
+    height: 205px;
+}
+.eq-10{ 
+    height: 228px; 
+}

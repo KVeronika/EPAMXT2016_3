@@ -1,0 +1,46 @@
+body{
+	background-color: #4e6379
+}
+.block{
+	background-color: #ffffff;
+	width: 610px;
+	margin: 30px auto;
+	padding: 10px 10px;
+	border-radius: 5px;
+	box-shadow: 0  10px 50px #303d4b;
+}
+.block div:first-child{
+	border-right: 1px solid #dedede;
+}
+.block div:last-child{
+	border-left: 1px solid #dedede;
+}
+.col{
+	display: inline-block;
+	width: 200px;
+	margin: 0 auto;
+	text-align: center;
+}
+.col h3{
+	color: #f56332;
+}
+.more-information-button{
+	display: inline-block;
+	width: 90px;
+	height: 20px;
+	background-color: #f56332; 
+	border-radius: 3px;
+	text-decoration: none;
+	color: #ffffff;
+}
+.icon {
+    width: 60px; height: 42.5px;
+    background: url(hosting.png) no-repeat;
+    margin: auto;
+}
+.cloud{
+	background-position: 0 -42.5px; 
+}
+.dedicated{
+	background-position: 0 -85px;
+}

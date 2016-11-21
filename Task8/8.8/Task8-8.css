@@ -1,0 +1,29 @@
+body {
+	background: black;
+    margin: 30px;
+}
+.block {
+	background: linear-gradient(to top, #dddddd, #ffffff);
+	width: 400px;
+	padding: 10px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+.block > header:first-child {
+	color: #ffb163;
+	font: bold 30px/20px Arial;
+	margin: 10px;
+	background: black;
+	width: 100px;
+	padding: 10px;
+	margin: -10px;
+}
+.block > header:first-child::after {
+    position: absolute;
+    top: 30px;
+    left: 130px;
+    content: '';
+    border: 15px solid #000;
+    border-bottom: 26px solid #fafafa;
+    border-right: 9px solid #fafafa;
+}

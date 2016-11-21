@@ -1,0 +1,41 @@
+.registration-form{
+	display: inline-block;
+	width: 440px;
+	border: 3px solid #0075b2;
+	background-color: #0690cf;
+	text-decoration-color: #FFFFFF; 
+}
+.registration-form .header{
+	border-bottom: 1px solid #ffffff;
+	padding: 0 20px;
+	color: #ffffff;
+}
+.account-info div{
+	margin: 20px 20px 10px 20px;
+}
+fieldset.account-info{
+	padding: 0;
+	margin: 0px;
+	border: none;
+	color: #ffffff;
+}
+div.double-inline-block{
+	display: inline-block;
+	width: 170px;
+}
+.btn-submit{
+	background-color: #ffdf7f;
+	border: none;
+}
+div.single-inline-block input{
+	width: 93%;
+	margin: 0 auto;
+}
+div.submit input.btn-submit{
+	display: inline-block;
+	width: 80px;
+	height: 20px;
+}
+.account-info p{
+	margin: 0;
+}
