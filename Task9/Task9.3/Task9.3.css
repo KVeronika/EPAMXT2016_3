@@ -1,0 +1,19 @@
+.butterflyControls > div{
+    display: inline-block;
+    margin: 5px 3px;
+    padding: 0;
+    height: 100px;
+}
+.butterflyControls > div > select{
+    overflow: hidden;
+    width: 100px;
+}
+.butterflyControls > div > ul{
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+.butterflyControls label{
+    display: block;
+    margin-left: 25%;
+}
