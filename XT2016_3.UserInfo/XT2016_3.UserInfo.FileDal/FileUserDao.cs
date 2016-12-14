@@ -100,5 +100,10 @@ namespace XT2016_3.UserInfo.FileDal
                 File.Create(this.fileName).Close();
             }
         }
+
+        public bool Edit(User user)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using XT2016_3.UserInfo.Entities;
 using XT2016_3.UserInfo.Logic;
 using XT2016_3.UserInfo.LogicContracts;
@@ -48,18 +47,23 @@ namespace XT2016_3.UserInfo.ConsoleUI
                         case ConsoleKey.D3:
                             ShowUsers();
                             break;
+
                         case ConsoleKey.D4:
                             AddAward();
                             break;
+
                         case ConsoleKey.D5:
                             ShowAwards();
                             break;
+
                         case ConsoleKey.D6:
                             AddAwardToUser();
                             break;
+
                         case ConsoleKey.D7:
                             ShowUsersWithAwards();
                             break;
+
                         case ConsoleKey.D0:
                             return;
 

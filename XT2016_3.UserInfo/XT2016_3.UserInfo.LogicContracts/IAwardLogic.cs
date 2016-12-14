@@ -6,6 +6,12 @@ namespace XT2016_3.UserInfo.LogicContracts
     {
         Award Add(string title);
 
+        Award Edit(int awardId, string oldTitle, string newTitle);
+
+        bool Delete(int idForDelete);
+
         Award[] GetAll();
+
+        int GetAwardImage(int awardId);
     }
 }

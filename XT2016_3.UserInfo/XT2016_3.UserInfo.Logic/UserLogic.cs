@@ -12,12 +12,14 @@ namespace XT2016_3.UserInfo.Logic
         private IUserDao userDao;
         private IAwardDao awardDao;
         private IUserAwardDao userAwardDao;
+        private IImageDao imageDao;
 
         public UserLogic()
         {
             this.userDao = DaoProvider.UserDao;
             this.awardDao = DaoProvider.AwardDao;
             this.userAwardDao = DaoProvider.UserAwardDao;
+            this.imageDao = DaoProvider.ImageDao;
         }
 
         public User Add(string userName, DateTime dateOfBirth)
@@ -88,7 +90,7 @@ namespace XT2016_3.UserInfo.Logic
 
         public Award[] GetUserAwards(int userId)
         {
-            List<int> awards = this.userAwardDao.GetUserAwards(userId);
+            List<int> awards = new List<int>(this.userAwardDao.GetUserAwards(userId));
             if (awards.Count == 0)
             {
                 return new Award[0];
@@ -101,6 +103,65 @@ namespace XT2016_3.UserInfo.Logic
             }
 
             return awardsArray;
+        }
+
+        public bool DeleteAward(int userId, int awardId)
+        {
+            if (userId <= 0)
+            {
+                throw new ArgumentException("Id must be positive and not 0", nameof(userId));
+            }
+
+            if (awardId <= 0)
+            {
+                throw new ArgumentException("Id must be positive and not 0", nameof(awardId));
+            }
+
+            if (this.userDao.GetById(userId) == null)
+            {
+                throw new ArgumentException($"User with id {userId} doesn't exist");
+            }
+
+            if (this.awardDao.GetById(awardId) == null)
+            {
+                throw new ArgumentException($"Award with id {awardId} doesn't exist");
+            }
+
+            if (!this.userAwardDao.DeleteAward(userId, awardId))
+            {
+                throw new InvalidOperationException("Error on delete award");
+            }
+
+            return true;
+        }
+
+        public User Edit(int userId, string oldUserName, string newUserName, DateTime oldDateOfBirth, DateTime newDateOfBirth)
+        {
+            if (string.IsNullOrWhiteSpace(newUserName))
+            {
+                throw new ArgumentException("User name cannot be null or whitespace", nameof(newUserName));
+            }
+            User user = new User(userId, newUserName, newDateOfBirth);
+            if (oldUserName.Equals(newUserName) && oldDateOfBirth.Equals(newDateOfBirth))
+            {
+                return user;
+            }
+            if (user.Age > 150)
+            {
+                throw new ArgumentException("User age cannot be more than 150 years");
+            }
+
+            if (this.userDao.Edit(user))
+            {
+                return user;
+            }
+
+            throw new InvalidOperationException("Error on user saving");
+        }
+
+        public int GetUserImage(int userId)
+        {
+            return this.imageDao.GetUserImage(userId);
         }
     }
 }

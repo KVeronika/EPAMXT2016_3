@@ -17,7 +17,7 @@ namespace XT2016_3.UserInfo.Entities
             this.DateOfBirth = dateTime;
         }
 
-        public int Id { get; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 

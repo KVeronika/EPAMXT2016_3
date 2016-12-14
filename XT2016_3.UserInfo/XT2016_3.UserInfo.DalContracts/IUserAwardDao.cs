@@ -7,6 +7,8 @@ namespace XT2016_3.UserInfo.DalContracts
     {
         bool AddAward(int userId, int awardId);
 
+        bool DeleteAward(int userId, int awardId);
+
         IEnumerable<int> GetUserAwards(int userId);
     }
 }

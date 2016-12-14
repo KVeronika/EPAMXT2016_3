@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using XT2016_3.UserInfo.DalContracts;
 using XT2016_3.UserInfo.Entities;
 
@@ -58,6 +56,16 @@ namespace XT2016_3.UserInfo.FileDal
                 File.WriteAllText(this.countOfAwards, "0");
                 return 0;
             }
+        }
+
+        public bool Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Edit(Award award)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -9,6 +9,8 @@ namespace XT2016_3.UserInfo.DalContracts
 
         bool Delete(int id);
 
+        bool Edit(User user);
+
         IEnumerable<User> GetAll();
 
         User GetById(int id);

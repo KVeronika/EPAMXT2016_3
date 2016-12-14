@@ -11,3 +11,5 @@ D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.Logic\bin\Debug\XT2016_3.U
 D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.Logic\bin\Debug\XT2016_3.UserInfo.LogicContracts.pdb
 D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.Logic\obj\Debug\XT2016_3.UserInfo.Logic.dll
 D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.Logic\obj\Debug\XT2016_3.UserInfo.Logic.pdb
+D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.Logic\bin\Debug\XT2016_3.UserInfo.SqlDal.dll
+D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.Logic\bin\Debug\XT2016_3.UserInfo.SqlDal.pdb

@@ -21,6 +21,11 @@ namespace XT2016_3.UserInfo.FileDal
             return true;
         }
 
+        public bool DeleteAward(int userId, int awardId)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<int> GetUserAwards(int userId)
         {
             var usersWithAwards = File.ReadAllLines(this.fileName)

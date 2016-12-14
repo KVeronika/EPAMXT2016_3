@@ -33,6 +33,7 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,8 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountLogic.cs" />
     <Compile Include="AwardLogic.cs" />
     <Compile Include="DaoProvider.cs" />
+    <Compile Include="ImageLogic.cs" />
     <Compile Include="SettingsFromConfig.cs" />
     <Compile Include="UserLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -63,6 +66,10 @@
     <ProjectReference Include="..\XT2016_3.UserInfo.LogicContracts\XT2016_3.UserInfo.LogicContracts.csproj">
       <Project>{144a62e2-8afa-4960-b0bd-b82b00626e46}</Project>
       <Name>XT2016_3.UserInfo.LogicContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XT2016_3.UserInfo.SqlDal\XT2016_3.UserInfo.SqlDal.csproj">
+      <Project>{46ef822a-f87b-48ae-995d-bbad16cafc3e}</Project>
+      <Name>XT2016_3.UserInfo.SqlDal</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
