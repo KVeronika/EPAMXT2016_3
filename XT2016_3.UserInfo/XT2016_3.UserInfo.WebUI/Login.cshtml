@@ -1,0 +1,61 @@
+﻿@using XT2016_3.UserInfo.WebUI.Models
+@{
+    Page.Title = "Login";
+    string login = Request["login"];
+    string password = Request["password"];
+}
+@if (IsPost)
+{
+    if (string.IsNullOrWhiteSpace(login) || string.IsNullOrWhiteSpace(password))
+    {
+        Response.SetStatus(HttpStatusCode.BadRequest);
+        return;
+    }
+    if (LogicProvider.AccountLogic.CanLogin(login, password))
+    {
+        FormsAuthentication.SetAuthCookie(login, createPersistentCookie: false);
+        var returnUrl = Request["ReturnUrl"];
+        if (string.IsNullOrWhiteSpace(returnUrl))
+        {
+            returnUrl = "~";
+        }
+        Response.Redirect(returnUrl);
+        return;
+    }
+    else
+    {
+        <div class="container">
+            <div class="alert alert-danger">
+                <p>Account with this login/password is not exist</p>
+                <a href="~/Registration" >Go to registration</a>
+            </div>
+        </div>
+    }
+}
+<div class="container">
+    <form action="~/Login" method="post" class="form-horizontal">
+        <fieldset>
+            <div id="legend">
+                <legend>Login</legend>
+            </div>
+            <input type="hidden" name="ReturnUrl" value="@Request["ReturnUrl"]" />
+            <div class="control-group">
+                <label class="control-label" for="lodin">Login</label>
+                <div class="controls">
+                    <input type="text" autocomplete="off" name="login" placeholder="Enter login" value="@login" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="password">Password</label>
+                <div class="controls">
+                    <input type="password" autocomplete="off" name="password" placeholder="Enter password" />
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <button class="btn btn-success">Login</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

@@ -1,0 +1,30 @@
+﻿@using XT2016_3.UserInfo.WebUI.Models;
+@using XT2016_3.UserInfo.Entities;
+@{
+    Page.Title = "See all awards";
+    if (!User.IsInRole("admin"))
+    {
+        Response.SetStatus(HttpStatusCode.Forbidden);
+    }
+    List<Award> awards = new List<Award>(LogicProvider.AwardLogic.GetAll());
+    int imageId = 0;
+}
+<div class="container">
+    @if (awards.Count == 0)
+    {
+        <div class="container">
+            <div class="alert alert-info">
+                <p>No available awards in database</p>
+            </div>
+        </div>
+        return;
+    }
+    @foreach (var award in awards)
+    {
+        imageId = LogicProvider.AwardLogic.GetAwardImage(award.Id);
+        <div class="award-item">
+            <img src="~/Pages/Images/Image?id=@imageId" class="img-rounded img-responsive" />
+            <h3>Title of award: @award.Title</h3>
+        </div>
+    }
+</div>

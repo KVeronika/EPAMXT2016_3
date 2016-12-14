@@ -1,0 +1,21 @@
+﻿@using XT2016_3.UserInfo.WebUI.Models
+@using XT2016_3.UserInfo.Entities;
+@{
+    Page.Title = "Edit award";
+}
+@if (IsPost)
+{
+    int id = int.Parse(Request["id"]);
+    string oldTitle = Request["oldTitle"];
+    string newTitle = Request["newTitle"];
+    var file = Request.Files["image"];
+
+    var image = System.Drawing.Bitmap.FromStream(file.InputStream);
+    var imageInfo = new ImageInfo
+    {
+        Name = file.FileName.Substring(file.FileName.LastIndexOf('\\') + 1),
+    };
+    LogicProvider.AwardLogic.Edit(id, oldTitle, newTitle);
+    LogicProvider.ImageLogic.EditImageToAward(id, imageInfo, image);
+    Response.Redirect("~/Pages/Awards/Edit");
+}

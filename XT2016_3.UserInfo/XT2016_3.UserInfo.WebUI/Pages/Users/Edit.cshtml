@@ -1,0 +1,82 @@
+﻿@using XT2016_3.UserInfo.Entities
+@using XT2016_3.UserInfo.WebUI.Models
+@{
+    Page.Title = "Edit user";
+    if (!User.IsInRole("admin"))
+    {
+        Response.SetStatus(HttpStatusCode.Forbidden);
+    }
+    List<User> users = new List<User>(LogicProvider.UserLogic.GetAll());
+}
+@if (IsPost)
+{
+    try
+    {
+        int id = int.Parse(Request["id"]);
+        string name = Request["oldName"];
+        DateTime dateOfBirth = DateTime.Parse(Request["oldDateOfBirth"]);
+        <div class="container">
+            <form action="~/Pages/Users/Editing" method="post" class="form-horizontal" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="@id" />
+                <input type="hidden" name="oldName" value="@name" />
+                <input type="hidden" name="oldDateOfBirth" value="@dateOfBirth" />
+                <fieldset>
+                    <div class="control-group">
+                        <label class="control-label" for="name">Name</label>
+                        <div class="controls">
+                            <input type="text" autocomplete="off" name="newName" value="@name">
+                            <p class="help-block">Name can contain any letters or numbers</p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="dateOfBirth">Date of Birth</label>
+                        <div class="controls">
+                            <input type="date" autocomplete="off" name="newDateOfBirth" value="@dateOfBirth">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="image">Image</label>
+                        <div class="controls">
+                            <input type="file" name="image" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <button class="btn btn-success">Edit</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    }
+    catch (FormatException)
+    {
+        Response.SetStatus(HttpStatusCode.BadRequest);
+    }
+}
+else
+{
+    <div class="container">
+        @if (users.Count == 0)
+        {
+            <div class="container">
+                <div class="alert alert-info">
+                    <p>No available users in database</p>
+                </div>
+            </div>
+            return;
+        }
+        @foreach (var user in users)
+        {
+            <div class="user-item">
+                <h3>Username: @user.Name Date of Birth: @user.DateOfBirth.ToString("d")</h3>
+                <form action="~/Pages/Users/Edit" method="post" class="form-horizontal">
+                    <input type="hidden" name="id" value="@user.Id" />
+                    <input type="hidden" name="oldName" value="@user.Name" />
+                    <input type="hidden" name="oldDateOfBirth" value="@user.DateOfBirth" />
+                    <button class="btn btn-primary">Edit user <i class="glyphicon glyphicon-edit"></i></button>
+                </form>
+            </div>
+        }
+    </div>
+}

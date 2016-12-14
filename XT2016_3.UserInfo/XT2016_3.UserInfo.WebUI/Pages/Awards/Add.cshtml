@@ -1,0 +1,60 @@
+﻿@using XT2016_3.UserInfo.WebUI.Models
+@using XT2016_3.UserInfo.Entities
+@{
+    Page.Title = "Add award";
+    if (!User.IsInRole("admin"))
+    {
+        Response.SetStatus(HttpStatusCode.Forbidden);
+    }
+}
+@if (IsPost)
+{
+    string title = Request["title"];
+    if (string.IsNullOrWhiteSpace(title))
+    {
+        Response.SetStatus(HttpStatusCode.BadRequest);
+    }
+    var file = Request.Files["image"];
+    if (file.ContentLength == 0)
+    {
+        Award award = LogicProvider.AwardLogic.Add(title);
+    }
+    else
+    {
+        var image = System.Drawing.Bitmap.FromStream(file.InputStream);
+        var imageInfo = new ImageInfo
+        {
+            Name = file.FileName.Substring(file.FileName.LastIndexOf('\\') + 1),
+        };
+        Award award = LogicProvider.AwardLogic.Add(title);
+        LogicProvider.ImageLogic.AddImageToAward(award.Id, imageInfo, image);
+        Response.Redirect("~/Pages/Awards/ShowAll");
+    }
+}
+<div class="container">
+    <form action="~/Pages/Awards/Add" method="post" class="form-horizontal" enctype="multipart/form-data">
+        <fieldset>
+            <div id="legend">
+                <legend>Add award</legend>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="title">Title</label>
+                <div class="controls">
+                    <input type="text" autocomplete="off" name="title" placeholder="Enter title">
+                    <p class="help-block">Title can contain any letters or numbers</p>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="image">Image</label>
+                <div class="controls">
+                    <input type="file" name="image" />
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <button class="btn btn-success">Add</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

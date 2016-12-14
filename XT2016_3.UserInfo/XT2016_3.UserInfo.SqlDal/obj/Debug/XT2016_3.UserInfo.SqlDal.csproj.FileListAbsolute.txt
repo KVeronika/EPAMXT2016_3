@@ -1,0 +1,9 @@
+D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.SqlDal\bin\Debug\XT2016_3.UserInfo.SqlDal.dll
+D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.SqlDal\bin\Debug\XT2016_3.UserInfo.SqlDal.pdb
+D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.SqlDal\bin\Debug\XT2016_3.UserInfo.DalContracts.dll
+D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.SqlDal\bin\Debug\XT2016_3.UserInfo.Entities.dll
+D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.SqlDal\bin\Debug\XT2016_3.UserInfo.DalContracts.pdb
+D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.SqlDal\bin\Debug\XT2016_3.UserInfo.Entities.pdb
+D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.SqlDal\obj\Debug\XT2016_3.UserInfo.SqlDal.csprojResolveAssemblyReference.cache
+D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.SqlDal\obj\Debug\XT2016_3.UserInfo.SqlDal.dll
+D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.SqlDal\obj\Debug\XT2016_3.UserInfo.SqlDal.pdb

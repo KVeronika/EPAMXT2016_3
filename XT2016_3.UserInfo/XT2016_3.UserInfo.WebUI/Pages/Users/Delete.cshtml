@@ -1,0 +1,47 @@
+﻿@using XT2016_3.UserInfo.WebUI.Models
+@using XT2016_3.UserInfo.Entities
+@{
+    Page.Title = "Delete user";
+    if (!User.IsInRole("admin"))
+    {
+        Response.SetStatus(HttpStatusCode.Forbidden);
+    }
+}
+@if (IsPost)
+{
+    int id = int.Parse(Request["id"]);
+    try
+    {
+        LogicProvider.UserLogic.Delete(id);
+        Response.Redirect("~/Pages/Users/Delete");
+    }
+    catch (InvalidOperationException)
+    {
+        Response.SetStatus(HttpStatusCode.BadRequest);
+    }
+}
+else
+{
+    List<User> users = new List<User>(LogicProvider.UserLogic.GetAll());
+    <div class="container">
+        @if (users.Count == 0)
+        {
+            <div class="container">
+                <div class="alert alert-info">
+                    <p>No available users in database</p>
+                </div>
+            </div>
+            return;
+        }
+        @foreach (var user in users)
+        {
+            <div class="user-item">
+                <h3>Username: @user.Name Date of Birth: @user.DateOfBirth.ToString("d")</h3>
+                <form action="~/Pages/Users/Delete" method="post">
+                    <input type="hidden" name="id" value="@user.Id" />
+                    <button class="btn btn-danger">Delete <i class="glyphicon glyphicon-remove"></i></button>
+                </form>
+            </div>
+        }
+    </div>
+}

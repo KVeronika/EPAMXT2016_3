@@ -1,0 +1,74 @@
+﻿@using XT2016_3.UserInfo.WebUI.Models
+@using XT2016_3.UserInfo.Entities
+@{
+    Page.Title = "Add user";
+    if (!User.IsInRole("admin"))
+    {
+        Response.SetStatus(HttpStatusCode.Forbidden);
+    }
+}
+@if (IsPost)
+{
+    string name = Request["name"];
+    if (string.IsNullOrWhiteSpace(name))
+    {
+        Response.SetStatus(HttpStatusCode.BadRequest);
+    }
+    try
+    {
+        DateTime dateOfBirth = DateTime.Parse(Request["dateOfBirth"]);
+        var file = Request.Files["image"];
+        if (file.ContentLength == 0)
+        {
+            User user = LogicProvider.UserLogic.Add(name, dateOfBirth);
+        }
+        else
+        {
+            var image = System.Drawing.Bitmap.FromStream(file.InputStream);
+            var imageInfo = new ImageInfo
+            {
+                Name = file.FileName.Substring(file.FileName.LastIndexOf('\\') + 1),
+            };
+            User user = LogicProvider.UserLogic.Add(name, dateOfBirth);
+            LogicProvider.ImageLogic.AddImageToUser(user.Id, imageInfo, image);
+        }
+    }
+    catch (FormatException)
+    {
+        Response.SetStatus(HttpStatusCode.BadRequest);
+    }
+    Response.Redirect("~/Pages/Users/ShowAll");
+}
+<div class="container">
+    <form action="~/Pages/Users/Add" method="post" class="form-horizontal" enctype="multipart/form-data">
+        <fieldset>
+            <div id="legend">
+                <legend>Add user</legend>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="name">Name</label>
+                <div class="controls">
+                    <input type="text" autocomplete="off" name="name" placeholder="Enter name"/>
+                    <p class="help-block">Name can contain any letters or numbers</p>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="dateOfBirth">Date of Birth</label>
+                <div class="controls">
+                    <input type="date" autocomplete="off" name="dateOfBirth" placeholder="Enter date of birth"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="image">Image</label>
+                <div class="controls">
+                    <input type="file" name="image"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <button class="btn btn-success">Add</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

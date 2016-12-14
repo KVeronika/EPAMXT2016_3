@@ -1,0 +1,35 @@
+﻿@using XT2016_3.UserInfo.WebUI.Models
+@using XT2016_3.UserInfo.Entities
+@{
+    Page.Title = "Set users";
+}
+@if (IsPost)
+{
+    int id = int.Parse(Request["id"]);
+    LogicProvider.AccountLogic.ChangeRole(id, Constants.userRoleName);
+    Response.Redirect("~/Pages/Accounts/SetAccountsAsUsers");
+}
+<div class="container">
+    @{List<Account> accounts = new List<Account>(LogicProvider.AccountLogic.GetAll(Constants.adminRoleName));
+        if (accounts.Count == 1)
+        {
+            <div class="container">
+                <div class="alert alert-info">
+                    <p>No available accounts in database</p>
+                </div>
+            </div>
+            return;
+        }
+        var query = accounts.Where(item => !item.Login.Equals(User.Identity.Name));
+    }
+    @foreach (var account in query)
+    {
+        <div class="account-item">
+            <h3>Login: @account.Login</h3>
+            <form action="~/Pages/Accounts/SetAccountsAsUsers" method="post" class="form-horizontal">
+                <input type="hidden" name="id" value="@account.Id" />
+                <button class="btn btn-primary">Set as user<i class="glyphicon glyphicon-arrow-down"></i></button>
+            </form>
+        </div>
+    }
+</div>

@@ -1,0 +1,28 @@
+﻿body {
+    padding-top: 60px;
+}
+.user-item > h3,
+.user-item > form,
+.award-item > h3,
+.award-item > form,
+.account-item > h3,
+.account-item > form,
+.awards-of-user,
+.img-responsive
+{
+    display: inline-block;
+}
+div.awards-of-user{
+    display: block;
+}
+ul.nav.navbar-nav{
+    width: 100%;
+}
+li.auth-block{
+    margin-left: 50%;
+}
+h4.awards-of-user{
+    padding-top: 7px;
+    margin-top: 0px;
+    border-top: 1px dotted;
+}

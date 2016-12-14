@@ -1,0 +1,73 @@
+﻿@using XT2016_3.UserInfo.Entities
+@using XT2016_3.UserInfo.WebUI.Models
+@{
+    Page.Title = "Edit award";
+    if (!User.IsInRole("admin"))
+    {
+        Response.SetStatus(HttpStatusCode.Forbidden);
+    }
+    List<Award> awards = new List<Award>(LogicProvider.AwardLogic.GetAll());
+}
+@if (IsPost)
+{
+    try
+    {
+        int id = int.Parse(Request["id"]);
+        string title = Request["oldTitle"];
+        <div class="container">
+            <form action="~/Pages/Awards/Editing" method="post" class="form-horizontal" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="@id" />
+                <input type="hidden" name="oldTitle" value="@title" />
+                <fieldset>
+                    <div class="control-group">
+                        <label class="control-label" for="title">Title</label>
+                        <div class="controls">
+                            <input type="text" autocomplete="off" name="newTitle" value="@title">
+                            <p class="help-block">Title can contain any letters or numbers</p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="image">Image</label>
+                        <div class="controls">
+                            <input type="file" name="image" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <button class="btn btn-success">Edit</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    }
+    catch (FormatException)
+    {
+        Response.SetStatus(HttpStatusCode.BadRequest);
+    }
+}
+else
+{
+    <div class="container">
+        @if (awards.Count == 0)
+        {
+            <div class="container">
+                <div class="alert alert-info">
+                    <p>No available awards in database</p>
+                </div>
+            </div>
+            return;
+        }
+        @foreach (var award in awards)
+        {
+            <div class="award-item">
+                <h3>Title of award: @award.Title</h3>
+                <form action="~/Pages/Awards/Edit" method="post" class="form-horizontal">
+                    <input type="hidden" name="id" value="@award.Id" />
+                    <input type="hidden" name="oldTitle" value="@award.Title" />
+                    <button class="btn btn-primary">Edit award <i class="glyphicon glyphicon-edit"></i></button>
+                </form>
+            </div>
+        }
+    </div>
+}

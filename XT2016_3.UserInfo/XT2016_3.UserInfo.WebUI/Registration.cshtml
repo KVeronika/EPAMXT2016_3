@@ -1,0 +1,55 @@
+﻿@using XT2016_3.UserInfo.WebUI.Models
+@{
+    Page.Title = "Registration";
+    string login = Request["login"];
+    string password = Request["password"];
+}
+@if (IsPost)
+{
+    if (string.IsNullOrWhiteSpace(login)|| string.IsNullOrWhiteSpace(password))
+    {
+        Response.SetStatus(HttpStatusCode.BadRequest);
+        return;
+    }
+    if (LogicProvider.AccountLogic.Add(login, password))
+    {
+        FormsAuthentication.SetAuthCookie(login, createPersistentCookie: false);
+        Response.Redirect("~");
+        return;
+    }
+    else
+    {
+        <div class="container">
+            <div class="alert alert-danger">
+                <p>Something went wrong</p>
+            </div>
+        </div>
+    }
+}
+<div class="container">
+    <form action="~/Registration" method="post" class="form-horizontal">
+        <fieldset>
+            <div id="legend">
+                <legend>Registration</legend>
+            </div>
+            <input type="hidden" name="ReturnUrl" value="@Request["ReturnUrl"]" />
+            <div class="control-group">
+                <label class="control-label" for="lodin">Login</label>
+                <div class="controls">
+                    <input type="text" autocomplete="off" name="login" placeholder="Enter login" value="@login" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="password">Password</label>
+                <div class="controls">
+                    <input type="password" autocomplete="off" name="password" placeholder="Enter password" />
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <button class="btn btn-success">Registration</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

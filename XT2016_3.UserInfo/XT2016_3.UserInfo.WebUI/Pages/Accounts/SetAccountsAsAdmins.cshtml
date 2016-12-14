@@ -1,0 +1,34 @@
+﻿@using XT2016_3.UserInfo.WebUI.Models
+@using XT2016_3.UserInfo.Entities
+@{
+    Page.Title = "Set admins";
+}
+@if (IsPost)
+{
+    int id = int.Parse(Request["id"]);
+    LogicProvider.AccountLogic.ChangeRole(id, Constants.adminRoleName);
+    Response.Redirect("~/Pages/Accounts/SetAccountsAsAdmins");
+}
+<div class="container">
+    @{List<Account> accounts = new List<Account>(LogicProvider.AccountLogic.GetAll(Constants.userRoleName));
+        if (accounts.Count == 0)
+        {
+            <div class="container">
+                <div class="alert alert-info">
+                    <p>No available accounts in database</p>
+                </div>
+            </div>
+            return;
+        }
+    }
+    @foreach (var account in accounts)
+    {
+        <div class="account-item">
+            <h3>Login: @account.Login</h3>
+            <form action="~/Pages/Accounts/SetAccountsAsAdmins" method="post" class="form-horizontal">
+                <input type="hidden" name="id" value="@account.Id" />
+                <button class="btn btn-success">Set as admin<i class="glyphicon glyphicon-arrow-up"></i></button>
+            </form>
+        </div>
+    }
+</div>

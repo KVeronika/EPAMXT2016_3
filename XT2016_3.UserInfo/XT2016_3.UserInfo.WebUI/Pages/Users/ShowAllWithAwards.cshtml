@@ -1,0 +1,38 @@
+﻿@using XT2016_3.UserInfo.WebUI.Models;
+@using XT2016_3.UserInfo.Entities;
+@{
+    Page.Title = "See all users with awards";
+    List<User> users = new List<User>(LogicProvider.UserLogic.GetAll());
+    int imageId = 0;
+}
+<div class="container">
+    @if (users.Count == 0)
+    {
+        <div class="container">
+            <div class="alert alert-info">
+                <p>No available users in database</p>
+            </div>
+        </div>
+        return;
+    }
+    @foreach (var user in users)
+    {
+        imageId = LogicProvider.UserLogic.GetUserImage(user.Id);
+        List<Award> awards = new List<Award>(LogicProvider.UserLogic.GetUserAwards(user.Id));
+        <div class="col-lg-4 col-sm-6 col-xs-12 text-center">
+            <img src="~/Pages/Images/Image?id=@imageId" class="img-rounded img-responsive" />
+            <h3>Username: @user.Name</h3>
+            <h4>Date of Birth: @user.DateOfBirth.ToString("d")</h4>
+            @if (awards.Count > 0)
+            {
+                <h4 class="awards-of-user">Awards:</h4>
+            }
+            @foreach (var award in awards)
+            {
+                <div class="awards-of-user">
+                    <p>@award.Title</p>
+                </div>
+            }
+        </div>
+    }
+</div>

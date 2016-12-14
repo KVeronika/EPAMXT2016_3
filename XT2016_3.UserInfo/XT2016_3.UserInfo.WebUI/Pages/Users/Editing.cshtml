@@ -1,0 +1,31 @@
+﻿@using XT2016_3.UserInfo.WebUI.Models
+@using XT2016_3.UserInfo.Entities;
+@{
+    Page.Title = "Edit user";
+}
+@if (IsPost)
+{
+    int id = int.Parse(Request["id"]);
+    string oldName = Request["oldName"];
+    DateTime oldDateOfBirth = DateTime.Parse(Request["oldDateOfBirth"]);
+    string newName = Request["newName"];
+    DateTime newDateOfBirth = DateTime.Now;
+    try
+    {
+        newDateOfBirth = DateTime.Parse(Request["newDateOfBirth"]);
+    }
+    catch (FormatException)
+    {
+        newDateOfBirth = LogicProvider.UserLogic.GetAll().Where(item => item.Id == id).First().DateOfBirth;
+    }
+    var file = Request.Files["image"];
+
+    var image = System.Drawing.Bitmap.FromStream(file.InputStream);
+    var imageInfo = new ImageInfo
+    {
+        Name = file.FileName.Substring(file.FileName.LastIndexOf('\\') + 1),
+    };
+    LogicProvider.UserLogic.Edit(id, oldName, newName, oldDateOfBirth, newDateOfBirth);
+    LogicProvider.ImageLogic.EditImageToUser(id, imageInfo, image);
+    Response.Redirect("~/Pages/Users/Edit");
+}

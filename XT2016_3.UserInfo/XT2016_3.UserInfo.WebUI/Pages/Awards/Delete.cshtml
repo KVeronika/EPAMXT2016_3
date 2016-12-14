@@ -1,0 +1,58 @@
+﻿@using XT2016_3.UserInfo.Entities
+@using XT2016_3.UserInfo.WebUI.Models
+@{
+    Page.Title = "Delete award";
+    if (!User.IsInRole("admin"))
+    {
+        Response.SetStatus(HttpStatusCode.Forbidden);
+    }
+}
+@if (IsPost)
+{
+    int id = int.Parse(Request["id"]);
+
+    LogicProvider.AwardLogic.Delete(id);
+}
+else
+{
+    List<Award> awards = new List<Award>(LogicProvider.AwardLogic.GetAll());
+    <div class="container">
+        @if (awards.Count == 0)
+        {
+            <div class="container">
+                <div class="alert alert-info">
+                    <p>No available awards in database</p>
+                </div>
+            </div>
+            return;
+        }
+        @foreach (var award in awards)
+        {
+            <div class="award-item">
+                <h3>Title of award: @award.Title</h3>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#@award.Id">
+                    Delete <i class="glyphicon glyphicon-remove"></i>
+                </button>
+                <div class="modal fade" id="@award.Id" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabel">Remove award</h4>
+                            </div>
+                            <div class="modal-body">
+                                You want to remove this award for all users?
+                            </div>
+                            <div class="modal-footer">
+                                <form class="delete-award" action="~/Pages/Awards/Delete" method="post">
+                                    <input type="hidden" name="id" value="@award.Id" />
+                                    <button id="submit-delete" type="submit" class="btn btn-danger">Delete award</button>
+                                </form>
+                                <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

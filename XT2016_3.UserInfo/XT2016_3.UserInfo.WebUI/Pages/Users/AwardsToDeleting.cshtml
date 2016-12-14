@@ -1,0 +1,22 @@
+﻿@using XT2016_3.UserInfo.WebUI.Models
+@{
+    Page.Title = "Delete award from user";
+}
+@if (IsPost)
+{
+    try
+    {
+        int userId = int.Parse(Request["user_id"]);
+        int awardId = int.Parse(Request["award_id"]);
+        LogicProvider.UserLogic.DeleteAward(userId, awardId);
+        Response.Redirect("~/Pages/Users/DeleteAwardFromUser");
+    }
+    catch (ArgumentException)
+    {
+        Response.SetStatus(HttpStatusCode.BadRequest);
+    }
+    catch (InvalidOperationException)
+    {
+        Response.SetStatus(HttpStatusCode.BadRequest);
+    }
+}

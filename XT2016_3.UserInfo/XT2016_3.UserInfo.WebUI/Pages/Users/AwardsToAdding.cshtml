@@ -1,0 +1,18 @@
+﻿@using XT2016_3.UserInfo.WebUI.Models
+@{
+    Page.Title = "Add award to user";
+}
+@if (IsPost)
+{
+    try
+    {
+        int userId = int.Parse(Request["user_id"]);
+        int awardId = int.Parse(Request["award_id"]);
+        LogicProvider.UserLogic.AddAward(userId, awardId);
+        Response.Redirect("~/Pages/Users/AddAwardToUser");
+    }
+    catch (ArgumentException)
+    {
+        Response.SetStatus(HttpStatusCode.BadRequest);
+    }
+}

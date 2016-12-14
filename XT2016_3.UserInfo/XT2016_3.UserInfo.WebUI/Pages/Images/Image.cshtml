@@ -1,0 +1,13 @@
+﻿@using XT2016_3.UserInfo.WebUI.Models
+@{
+    if (IsPost)
+    {
+        Response.SetStatus(HttpStatusCode.NotFound);
+        return;
+    }
+
+    int id = int.Parse(Request["Id"]);
+    var photoData = LogicProvider.ImageLogic.GetThumbnail(id);
+
+    Response.WriteBinary(photoData.Data, "image/png");
+}

@@ -1,0 +1,52 @@
+﻿@using XT2016_3.UserInfo.Entities
+@using XT2016_3.UserInfo.WebUI.Models
+@{
+    Page.Title = "Delete award from user";
+    if (!User.IsInRole("admin"))
+    {
+        Response.SetStatus(HttpStatusCode.Forbidden);
+    }
+    List<User> users = new List<User>(LogicProvider.UserLogic.GetAll());
+    List<Award> awards = new List<Award>(LogicProvider.AwardLogic.GetAll());
+}
+@if (IsPost)
+{
+    int userId = int.Parse(Request["id"]);
+    <div class="container">
+        @foreach (var award in awards)
+        {
+            <div class="user-item">
+                <h3>Id: @award.Id Title of award: @award.Title</h3>
+            </div>
+        }
+        <form action="~/Pages/Users/AwardsToDeleting" method="post" class="form-horizontal">
+            <input type="hidden" name="user_id" value="@userId" />
+            <input type="text" autocomplete="off" name="award_id" placeholder="Enter id of award" />
+            <button class="btn btn-danger">Delete award <i class="glyphicon glyphicon-remove"></i></button>
+        </form>
+    </div>
+}
+else
+{
+    <div class="container">
+        @if (users.Count == 0 || awards.Count == 0)
+        {
+            <div class="container">
+                <div class="alert alert-info">
+                    <p>No available users in database</p>
+                </div>
+            </div>
+            return;
+        }
+        @foreach (var user in users)
+        {
+            <div class="user-item">
+                <h3>Username: @user.Name Date of Birth: @user.DateOfBirth.ToString("d")</h3>
+                <form action="~/Pages/Users/DeleteAwardFromUser" method="post" class="form-horizontal">
+                    <input type="hidden" name="id" value="@user.Id" />
+                    <button class="btn btn-danger">Delete award <i class="glyphicon glyphicon-remove"></i></button>
+                </form>
+            </div>
+        }
+    </div>
+}
