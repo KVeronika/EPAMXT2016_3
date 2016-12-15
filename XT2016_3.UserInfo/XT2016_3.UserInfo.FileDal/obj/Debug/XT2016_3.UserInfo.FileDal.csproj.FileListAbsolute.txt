@@ -1,9 +1,0 @@
-D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.FileDal\bin\Debug\XT2016_3.UserInfo.FileDal.dll
-D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.FileDal\bin\Debug\XT2016_3.UserInfo.FileDal.pdb
-D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.FileDal\obj\Debug\XT2016_3.UserInfo.FileDal.csprojResolveAssemblyReference.cache
-D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.FileDal\obj\Debug\XT2016_3.UserInfo.FileDal.dll
-D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.FileDal\obj\Debug\XT2016_3.UserInfo.FileDal.pdb
-D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.FileDal\bin\Debug\XT2016_3.UserInfo.DalContracts.dll
-D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.FileDal\bin\Debug\XT2016_3.UserInfo.Entities.dll
-D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.FileDal\bin\Debug\XT2016_3.UserInfo.DalContracts.pdb
-D:\XT2016_3\Tasks\XT2016_3.UserInfo\XT2016_3.UserInfo.FileDal\bin\Debug\XT2016_3.UserInfo.Entities.pdb
