@@ -1,4 +1,5 @@
-﻿using XT2016_3.UserInfo.DalContracts;
+﻿using System.Configuration;
+using XT2016_3.UserInfo.DalContracts;
 using XT2016_3.UserInfo.FileDal;
 using XT2016_3.UserInfo.SqlDal;
 
@@ -8,7 +9,7 @@ namespace XT2016_3.UserInfo.Logic
     {
         static DaoProvider()
         {
-            string typeOfDal = SettingsFromConfig.ReadSetting(Entities.Constants.KeyOfDal);
+            string typeOfDal = ConfigurationManager.AppSettings[Entities.Constants.KeyOfDal];
             if (typeOfDal.Equals(Entities.Constants.FileDal))
             {
                 UserDao = new FileUserDao();
