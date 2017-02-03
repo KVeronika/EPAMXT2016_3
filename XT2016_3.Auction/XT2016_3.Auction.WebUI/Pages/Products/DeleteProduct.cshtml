@@ -1,0 +1,115 @@
+﻿@using XT2016_3.Auction.WebUI.Models;
+@using XT2016_3.Auction.Entities;
+@{
+    Page.Title = "Delete product";
+    int userId = LogicProvider.UserLogic.GetIdForLogin(User.Identity.Name);
+    List<Product> products;
+    if (User.IsInRole(Constants.adminRoleName))
+    {
+        products = new List<Product>(LogicProvider.ProductLogic.GetAll());
+    }
+    else
+    {
+        products = new List<Product>(LogicProvider.ProductLogic.GetAllForUser(userId));
+    }
+    int imageId = 0, count = 0;
+}
+@if (IsPost)
+{
+    if (IsAjax)
+    {
+        try
+        {
+            int productId = int.Parse(Request["productId"]);
+            //если пытаются сломать запрос и удалить не принадлежащий пользователю товар
+            //при этом не являясь админом
+            if (!User.IsInRole(Constants.adminRoleName) && !products.Any(x => x.Id == productId))
+            {
+                Response.SetStatus(HttpStatusCode.BadRequest);
+            }
+            if (User.IsInRole(Constants.adminRoleName))
+            {
+                LogicProvider.ProductLogic.DeleteForAdmin(productId);
+            }
+            else
+            {
+                LogicProvider.ProductLogic.DeleteForUser(userId, productId);
+            }
+        }
+        catch (Exception)
+        {
+            Response.SetStatus(HttpStatusCode.BadRequest);
+        }
+        return;
+    }
+}
+<div class="container">
+    @if (User.IsInRole(Constants.adminRoleName))
+    {
+        products = new List<Product>(LogicProvider.ProductLogic.GetAll());
+    }
+    else
+    {
+        products = new List<Product>(LogicProvider.ProductLogic.GetAllForUser(userId));
+    }
+    @if (products.Count == 0)
+    {
+        <div class="alert alert-info">
+            <p>No available products in database</p>
+        </div>
+        return;
+    }
+    @foreach (var product in products)
+    {
+        count++;
+        if (product.EndingDate > DateTime.Now)
+        {
+            imageId = LogicProvider.ProductLogic.GetProductImage(product.Id);
+            <div class="col-lg-3 col-sm-6 col-xs-12 text-center product-block">
+                <img src="~/Pages/Images/Image?id=@imageId" class="img-rounded img-responsive" />
+                <h3>@product.Name</h3>
+                <h4>Description: @product.Description</h4>
+                <h4>Cost: @product.CurrentRate</h4>
+                <div class="endingDate">@product.EndingDate.ToString()</div>
+                <div class="timer">
+                    <span class="glyphicon glyphicon-time"></span>
+                    <span class="days"></span>
+                    <span class="hours"></span>
+                    <span class="minutes"></span>
+                    <span class="seconds"></span>
+                </div>
+
+                <button type="button" class="modalDeleteBtn btn btn-danger" data-toggle="modal" data-target="#@product.Id">Delete <i class="glyphicon glyphicon-remove"></i></button>
+                <div class="modal fade" id="@product.Id" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Deleting </h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>Are you sure you want to remove the product?</p>
+                                <form id="@product.Id-deleteForm" class="deleteForm form-horizontal">
+                                    <input type="hidden" name="productId" value="@product.Id" />
+                                    <button type="submit" class="deleteBtn btn btn-success"><span class="glyphicon glyphicon-ok"></span> Yes, I'm sure</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            //Исправление наезжания блоков друг на друга
+            if (count % 2 == 0)
+            {
+                <div class="clearfix visible-sm-block"></div>
+            }
+            if (count % 4 == 0)
+            {
+                <div class="clearfix visible-lg-block"></div>
+            }
+        }
+    }
+</div>
+@section scripts{
+    <script src="~/Scripts/modals/Delete.js"></script>
+}

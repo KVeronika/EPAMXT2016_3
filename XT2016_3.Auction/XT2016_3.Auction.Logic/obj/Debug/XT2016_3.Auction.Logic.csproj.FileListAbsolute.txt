@@ -1,0 +1,15 @@
+D:\XT2016_3\Tasks\XT2016_3.Auction\XT2016_3.Auction.Logic\bin\Debug\XT2016_3.Auction.Logic.dll
+D:\XT2016_3\Tasks\XT2016_3.Auction\XT2016_3.Auction.Logic\bin\Debug\XT2016_3.Auction.Logic.pdb
+D:\XT2016_3\Tasks\XT2016_3.Auction\XT2016_3.Auction.Logic\obj\Debug\XT2016_3.Auction.Logic.dll
+D:\XT2016_3\Tasks\XT2016_3.Auction\XT2016_3.Auction.Logic\obj\Debug\XT2016_3.Auction.Logic.pdb
+D:\XT2016_3\Tasks\XT2016_3.Auction\XT2016_3.Auction.Logic\obj\Debug\XT2016_3.Auction.Logic.csprojResolveAssemblyReference.cache
+D:\XT2016_3\Tasks\XT2016_3.Auction\XT2016_3.Auction.Logic\bin\Debug\XT2016_3.Auction.DaoContracts.dll
+D:\XT2016_3\Tasks\XT2016_3.Auction\XT2016_3.Auction.Logic\bin\Debug\XT2016_3.Auction.Entities.dll
+D:\XT2016_3\Tasks\XT2016_3.Auction\XT2016_3.Auction.Logic\bin\Debug\XT2016_3.Auction.LogicContracts.dll
+D:\XT2016_3\Tasks\XT2016_3.Auction\XT2016_3.Auction.Logic\bin\Debug\XT2016_3.Auction.SqlDao.dll
+D:\XT2016_3\Tasks\XT2016_3.Auction\XT2016_3.Auction.Logic\bin\Debug\XT2016_3.Auction.DaoContracts.pdb
+D:\XT2016_3\Tasks\XT2016_3.Auction\XT2016_3.Auction.Logic\bin\Debug\XT2016_3.Auction.Entities.pdb
+D:\XT2016_3\Tasks\XT2016_3.Auction\XT2016_3.Auction.Logic\bin\Debug\XT2016_3.Auction.LogicContracts.pdb
+D:\XT2016_3\Tasks\XT2016_3.Auction\XT2016_3.Auction.Logic\bin\Debug\XT2016_3.Auction.SqlDao.pdb
+D:\XT2016_3\Tasks\XT2016_3.Auction\XT2016_3.Auction.Logic\bin\Debug\log4net.dll
+D:\XT2016_3\Tasks\XT2016_3.Auction\XT2016_3.Auction.Logic\bin\Debug\log4net.xml

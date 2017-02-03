@@ -1,0 +1,7 @@
+C:\Users\Veronika\Desktop\EPAM\EPAMXT2016_3\XT2016_3.UserInfo\XT2016_3.UserInfo.DalContracts\bin\Debug\XT2016_3.UserInfo.DalContracts.dll
+C:\Users\Veronika\Desktop\EPAM\EPAMXT2016_3\XT2016_3.UserInfo\XT2016_3.UserInfo.DalContracts\bin\Debug\XT2016_3.UserInfo.DalContracts.pdb
+C:\Users\Veronika\Desktop\EPAM\EPAMXT2016_3\XT2016_3.UserInfo\XT2016_3.UserInfo.DalContracts\bin\Debug\XT2016_3.UserInfo.Entities.dll
+C:\Users\Veronika\Desktop\EPAM\EPAMXT2016_3\XT2016_3.UserInfo\XT2016_3.UserInfo.DalContracts\bin\Debug\XT2016_3.UserInfo.Entities.pdb
+C:\Users\Veronika\Desktop\EPAM\EPAMXT2016_3\XT2016_3.UserInfo\XT2016_3.UserInfo.DalContracts\obj\Debug\XT2016_3.UserInfo.DalContracts.csprojResolveAssemblyReference.cache
+C:\Users\Veronika\Desktop\EPAM\EPAMXT2016_3\XT2016_3.UserInfo\XT2016_3.UserInfo.DalContracts\obj\Debug\XT2016_3.UserInfo.DalContracts.dll
+C:\Users\Veronika\Desktop\EPAM\EPAMXT2016_3\XT2016_3.UserInfo\XT2016_3.UserInfo.DalContracts\obj\Debug\XT2016_3.UserInfo.DalContracts.pdb

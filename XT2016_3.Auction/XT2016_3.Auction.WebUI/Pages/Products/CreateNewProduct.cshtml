@@ -1,0 +1,96 @@
+﻿@using XT2016_3.Auction.WebUI.Models;
+@using XT2016_3.Auction.Entities;
+@{
+    Page.Title = "Create product";
+}
+@if (IsPost)
+{
+    string name = Request["name"];
+    string description = Request["description"];
+    decimal cost = decimal.Parse(Request["cost"]);
+    bool buyNow = Request["buyNow"] != null;
+    DateTime endingDate = DateTime.Parse(Request["endingDate"]);
+    Product product = new Product(name, description, cost, endingDate, buyNow);
+    var file = Request.Files["image"];
+    try
+    {
+        if (file.ContentLength == 0)
+        {
+            LogicProvider.ProductLogic.Add(product);
+            LogicProvider.ProductLogic.AddProductToUser(LogicProvider.UserLogic.GetIdForLogin(User.Identity.Name), product.Id);
+        }
+        else
+        {
+            byte[] data = new byte[file.ContentLength];
+            int len = file.InputStream.Read(data, 0, file.ContentLength);
+            ImageData image = new ImageData(data, file.ContentType);
+
+            LogicProvider.ProductLogic.Add(product);
+            LogicProvider.ProductLogic.AddProductToUser(LogicProvider.UserLogic.GetIdForLogin(User.Identity.Name), product.Id);
+            LogicProvider.ImageLogic.AddImageToProduct(product.Id, image);
+        }
+        Response.Redirect("~");
+        return;
+    }
+    catch (Exception ex)
+    {
+        <div class="container">
+            <div class="alert alert-danger">
+                <p>@ex.Message</p>
+                <a href="~/Registration">Go to registration</a>
+            </div>
+        </div>
+    }
+}
+<div class="container">
+    <form id="addForm" action="~/Pages/Products/CreateNewProduct" method="post" class="form-horizontal" enctype="multipart/form-data">
+        <legend class="text-center">Create new product</legend>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="name">Name of product:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" autocomplete="off" id="name" name="name" placeholder="Enter name" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="description">Description:</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" rows="5" name="description" autocomplete="off" placeholder="Enter description"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="image">Image:</label>
+            <div class="col-sm-10">
+                <input type="file" name="image" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="cost">Cost:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" autocomplete="off" id="cost" name="cost" placeholder="Enter cost" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    <label><input type="checkbox" name="buyNow"> The opportunity to buy now</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="endingDate">Ending date:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="endingDate" name="endingDate" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-success">Create product</button>
+            </div>
+        </div>
+    </form>
+</div>
+@section scripts{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/additional-methods.min.js"></script>
+    <script src="~/Scripts/customValidation/CreateProduct.js"></script>
+}

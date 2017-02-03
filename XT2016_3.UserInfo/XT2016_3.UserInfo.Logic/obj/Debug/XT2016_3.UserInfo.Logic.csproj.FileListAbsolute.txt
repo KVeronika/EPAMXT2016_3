@@ -1,0 +1,15 @@
+C:\Users\Veronika\Desktop\EPAM\EPAMXT2016_3\XT2016_3.UserInfo\XT2016_3.UserInfo.Logic\bin\Debug\XT2016_3.UserInfo.Logic.dll
+C:\Users\Veronika\Desktop\EPAM\EPAMXT2016_3\XT2016_3.UserInfo\XT2016_3.UserInfo.Logic\bin\Debug\XT2016_3.UserInfo.Logic.pdb
+C:\Users\Veronika\Desktop\EPAM\EPAMXT2016_3\XT2016_3.UserInfo\XT2016_3.UserInfo.Logic\bin\Debug\XT2016_3.UserInfo.DalContracts.dll
+C:\Users\Veronika\Desktop\EPAM\EPAMXT2016_3\XT2016_3.UserInfo\XT2016_3.UserInfo.Logic\bin\Debug\XT2016_3.UserInfo.Entities.dll
+C:\Users\Veronika\Desktop\EPAM\EPAMXT2016_3\XT2016_3.UserInfo\XT2016_3.UserInfo.Logic\bin\Debug\XT2016_3.UserInfo.FileDal.dll
+C:\Users\Veronika\Desktop\EPAM\EPAMXT2016_3\XT2016_3.UserInfo\XT2016_3.UserInfo.Logic\bin\Debug\XT2016_3.UserInfo.LogicContracts.dll
+C:\Users\Veronika\Desktop\EPAM\EPAMXT2016_3\XT2016_3.UserInfo\XT2016_3.UserInfo.Logic\bin\Debug\XT2016_3.UserInfo.SqlDal.dll
+C:\Users\Veronika\Desktop\EPAM\EPAMXT2016_3\XT2016_3.UserInfo\XT2016_3.UserInfo.Logic\bin\Debug\XT2016_3.UserInfo.DalContracts.pdb
+C:\Users\Veronika\Desktop\EPAM\EPAMXT2016_3\XT2016_3.UserInfo\XT2016_3.UserInfo.Logic\bin\Debug\XT2016_3.UserInfo.Entities.pdb
+C:\Users\Veronika\Desktop\EPAM\EPAMXT2016_3\XT2016_3.UserInfo\XT2016_3.UserInfo.Logic\bin\Debug\XT2016_3.UserInfo.FileDal.pdb
+C:\Users\Veronika\Desktop\EPAM\EPAMXT2016_3\XT2016_3.UserInfo\XT2016_3.UserInfo.Logic\bin\Debug\XT2016_3.UserInfo.LogicContracts.pdb
+C:\Users\Veronika\Desktop\EPAM\EPAMXT2016_3\XT2016_3.UserInfo\XT2016_3.UserInfo.Logic\bin\Debug\XT2016_3.UserInfo.SqlDal.pdb
+C:\Users\Veronika\Desktop\EPAM\EPAMXT2016_3\XT2016_3.UserInfo\XT2016_3.UserInfo.Logic\obj\Debug\XT2016_3.UserInfo.Logic.csprojResolveAssemblyReference.cache
+C:\Users\Veronika\Desktop\EPAM\EPAMXT2016_3\XT2016_3.UserInfo\XT2016_3.UserInfo.Logic\obj\Debug\XT2016_3.UserInfo.Logic.dll
+C:\Users\Veronika\Desktop\EPAM\EPAMXT2016_3\XT2016_3.UserInfo\XT2016_3.UserInfo.Logic\obj\Debug\XT2016_3.UserInfo.Logic.pdb

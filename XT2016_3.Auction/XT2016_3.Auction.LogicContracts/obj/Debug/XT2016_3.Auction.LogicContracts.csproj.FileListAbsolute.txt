@@ -1,0 +1,7 @@
+D:\XT2016_3\Tasks\XT2016_3.Auction\XT2016_3.Auction.LogicContracts\bin\Debug\XT2016_3.Auction.LogicContracts.dll
+D:\XT2016_3\Tasks\XT2016_3.Auction\XT2016_3.Auction.LogicContracts\bin\Debug\XT2016_3.Auction.LogicContracts.pdb
+D:\XT2016_3\Tasks\XT2016_3.Auction\XT2016_3.Auction.LogicContracts\obj\Debug\XT2016_3.Auction.LogicContracts.csprojResolveAssemblyReference.cache
+D:\XT2016_3\Tasks\XT2016_3.Auction\XT2016_3.Auction.LogicContracts\obj\Debug\XT2016_3.Auction.LogicContracts.dll
+D:\XT2016_3\Tasks\XT2016_3.Auction\XT2016_3.Auction.LogicContracts\obj\Debug\XT2016_3.Auction.LogicContracts.pdb
+D:\XT2016_3\Tasks\XT2016_3.Auction\XT2016_3.Auction.LogicContracts\bin\Debug\XT2016_3.Auction.Entities.dll
+D:\XT2016_3\Tasks\XT2016_3.Auction\XT2016_3.Auction.LogicContracts\bin\Debug\XT2016_3.Auction.Entities.pdb

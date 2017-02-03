@@ -1,0 +1,29 @@
+﻿@using XT2016_3.Auction.WebUI.Models;
+@{
+    Page.Title = "Make a bid";
+}
+@if (IsPost)
+{
+    if (IsAjax)
+    {
+        if (!User.Identity.IsAuthenticated)
+        {
+            Response.SetStatus(HttpStatusCode.Unauthorized);
+        }
+        try
+        {
+            int productId = int.Parse(Request["productId"]);
+            int userId = int.Parse(Request["userId"]);
+            decimal cost = decimal.Parse(Request["cost"]);
+            LogicProvider.RateLogic.Add(userId, productId, cost);
+        }
+        catch (ArgumentException ex)
+        {
+            <div class="container">
+                <div class="alert alert-danger">
+                    <p>@ex.Message</p>
+                </div>
+            </div>
+        }
+    }
+}

@@ -1,0 +1,138 @@
+﻿@using XT2016_3.Auction.Entities;
+@using XT2016_3.Auction.WebUI.Models;
+@{
+    Page.Title = "My products";
+    int userId = LogicProvider.UserLogic.GetIdForLogin(User.Identity.Name);
+    List<Product> products = new List<Product>(LogicProvider.ProductLogic.GetAllForUser(userId));
+    int imageId = 0, count = 0;
+}
+@if (IsPost)
+{
+    Response.SetStatus(HttpStatusCode.NotFound);
+}
+<div class="container">
+    @{products = new List<Product>(LogicProvider.ProductLogic.GetAllForUser(userId)); }
+    @if (products.Count == 0)
+    {
+        <div class="alert alert-info">
+            <p>No available products in database</p>
+        </div>
+        return;
+    }
+    @foreach (var product in products)
+    {
+        count++;
+        imageId = LogicProvider.ProductLogic.GetProductImage(product.Id);
+        <div class="col-lg-3 col-sm-6 col-xs-12 text-center product-block">
+            <img src="~/Pages/Images/Image?id=@imageId" class="img-rounded img-responsive" />
+            <h3>@product.Name</h3>
+            <h4>Description: @product.Description</h4>
+            <h4>Cost: @product.CurrentRate</h4>
+            <div class="endingDate">@product.EndingDate.ToString()</div>
+            <div class="timer">
+                <span class="glyphicon glyphicon-time"></span>
+                <span class="days"></span>
+                <span class="hours"></span>
+                <span class="minutes"></span>
+                <span class="seconds"></span>
+            </div>
+            @if (product.EndingDate > DateTime.Now)
+                {
+                <button type="button" class="modalDeleteBtn btn btn-danger" data-toggle="modal" data-target="#@product.Id">Delete <i class="glyphicon glyphicon-remove"></i></button>
+                    <div class="modal fade" id="@product.Id" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Deleting </h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Are you sure you want to remove the product?</p>
+                                    <form id="@product.Id-deleteForm" class="deleteForm form-horizontal">
+                                        <input type="hidden" name="productId" value="@product.Id" />
+                                        <button type="submit" class="deleteBtn btn btn-success"><span class="glyphicon glyphicon-ok"></span> Yes, I'm sure</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            }
+            else
+            {
+                <button disabled type="button" class="modalDeleteBtn btn btn-danger" data-toggle="modal" data-target="#@product.Id">Delete <i class="glyphicon glyphicon-remove"></i></button>
+            }
+
+            @{string newId = "edit" + @product.Id;}
+            <button type="button" class="modalEditBtn btn btn-default" data-toggle="modal" data-target="#@newId"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+            <div class="modal fade" id="@newId" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4>Editing</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="@product.Id-editForm" class="editForm form-horizontal" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="name">Name of product:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" autocomplete="off" id="name" name="name" value="@product.Name" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="description">Description:</label>
+                                    <div class="col-sm-10">
+                                        <textarea class="form-control" rows="5" name="description" autocomplete="off" placeholder="Enter description">@product.Description</textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="image">Image:</label>
+                                    <div class="col-sm-10">
+                                        <input type="file" name="image" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="cost">Cost:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" autocomplete="off" id="cost" name="cost" value="@product.CurrentRate" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <div class="checkbox">
+                                            <label><input type="checkbox" name="buyNow"> The opportunity to buy now</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="endingDate">Enging date:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="endingDate" name="endingDate" value="@product.EndingDate" />
+                                    </div>
+                                </div>
+                                <input type="hidden" name="productId" value="@product.Id" />
+                                <button type="submit" class="editBtn btn btn-success"><span class="glyphicon glyphicon-ok"></span> Edit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                //Исправление наезжания блоков друг на друга
+                if (count % 2 == 0)
+                {
+                    <div class="clearfix visible-sm-block"></div>
+                }
+                if (count % 4 == 0)
+                {
+                    <div class="clearfix visible-lg-block"></div>
+                    }
+                }
+</div>
+@section scripts{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/additional-methods.min.js"></script>
+    <script src="~/Scripts/customValidation/EditProduct.js"></script>
+    <script src="~/Scripts/modals/Delete.js"></script>
+    <script src="~/Scripts/modals/Edit.js"></script>
+}

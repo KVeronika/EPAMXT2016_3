@@ -1,0 +1,5 @@
+D:\XT2016_3\Tasks\XT2016_3.Auction\XT2016_3.Auction.Entities\bin\Debug\XT2016_3.Auction.Entities.dll
+D:\XT2016_3\Tasks\XT2016_3.Auction\XT2016_3.Auction.Entities\bin\Debug\XT2016_3.Auction.Entities.pdb
+D:\XT2016_3\Tasks\XT2016_3.Auction\XT2016_3.Auction.Entities\obj\Debug\XT2016_3.Auction.Entities.dll
+D:\XT2016_3\Tasks\XT2016_3.Auction\XT2016_3.Auction.Entities\obj\Debug\XT2016_3.Auction.Entities.pdb
+D:\XT2016_3\Tasks\XT2016_3.Auction\XT2016_3.Auction.Entities\obj\Debug\XT2016_3.Auction.Entities.csprojResolveAssemblyReference.cache

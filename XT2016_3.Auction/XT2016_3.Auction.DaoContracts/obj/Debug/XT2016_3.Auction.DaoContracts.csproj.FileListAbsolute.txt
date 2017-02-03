@@ -1,0 +1,7 @@
+D:\XT2016_3\Tasks\XT2016_3.Auction\XT2016_3.Auction.DaoContracts\bin\Debug\XT2016_3.Auction.DaoContracts.dll
+D:\XT2016_3\Tasks\XT2016_3.Auction\XT2016_3.Auction.DaoContracts\bin\Debug\XT2016_3.Auction.DaoContracts.pdb
+D:\XT2016_3\Tasks\XT2016_3.Auction\XT2016_3.Auction.DaoContracts\obj\Debug\XT2016_3.Auction.DaoContracts.dll
+D:\XT2016_3\Tasks\XT2016_3.Auction\XT2016_3.Auction.DaoContracts\obj\Debug\XT2016_3.Auction.DaoContracts.pdb
+D:\XT2016_3\Tasks\XT2016_3.Auction\XT2016_3.Auction.DaoContracts\bin\Debug\XT2016_3.Auction.Entities.dll
+D:\XT2016_3\Tasks\XT2016_3.Auction\XT2016_3.Auction.DaoContracts\bin\Debug\XT2016_3.Auction.Entities.pdb
+D:\XT2016_3\Tasks\XT2016_3.Auction\XT2016_3.Auction.DaoContracts\obj\Debug\XT2016_3.Auction.DaoContracts.csprojResolveAssemblyReference.cache

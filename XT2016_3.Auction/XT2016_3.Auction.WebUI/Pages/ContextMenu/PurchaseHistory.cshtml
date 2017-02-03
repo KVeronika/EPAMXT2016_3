@@ -1,0 +1,41 @@
+﻿@using XT2016_3.Auction.WebUI.Models;
+@using XT2016_3.Auction.Entities;
+@{
+    Page.Title = "Purchase history";
+    int userId = LogicProvider.UserLogic.GetIdForLogin(User.Identity.Name);
+    List<Product> products = new List<Product>(LogicProvider.RateLogic.GetAllFinished(userId));
+    int imageId = 0, count = 0;
+}
+@if (IsPost)
+{
+    Response.SetStatus(HttpStatusCode.NotFound);
+}
+<div class="container">
+    @if (products.Count == 0)
+    {
+        <div class="alert alert-info">
+            <p>No available products in database</p>
+        </div>
+        return;
+    }
+    @foreach (var product in products)
+    {
+        count++;
+        imageId = LogicProvider.ProductLogic.GetProductImage(product.Id);
+        <div class="col-lg-3 col-sm-6 col-xs-12 text-center product-block">
+            <img src="~/Pages/Images/Image?id=@imageId" class="img-rounded img-responsive" />
+            <h3>@product.Name</h3>
+            <h4>Description: @product.Description</h4>
+            <h4>Cost: @product.CurrentRate</h4>
+        </div>
+        //Исправление наезжания блоков друг на друга
+        if (count % 2 == 0)
+        {
+            <div class="clearfix visible-sm-block"></div>
+        }
+        if (count % 4 == 0)
+        {
+            <div class="clearfix visible-lg-block"></div>
+        }
+    }
+</div>

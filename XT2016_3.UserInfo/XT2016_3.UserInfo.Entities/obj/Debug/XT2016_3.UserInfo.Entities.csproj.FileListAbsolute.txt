@@ -1,0 +1,5 @@
+C:\Users\Veronika\Desktop\EPAM\EPAMXT2016_3\XT2016_3.UserInfo\XT2016_3.UserInfo.Entities\bin\Debug\XT2016_3.UserInfo.Entities.dll
+C:\Users\Veronika\Desktop\EPAM\EPAMXT2016_3\XT2016_3.UserInfo\XT2016_3.UserInfo.Entities\bin\Debug\XT2016_3.UserInfo.Entities.pdb
+C:\Users\Veronika\Desktop\EPAM\EPAMXT2016_3\XT2016_3.UserInfo\XT2016_3.UserInfo.Entities\obj\Debug\XT2016_3.UserInfo.Entities.csprojResolveAssemblyReference.cache
+C:\Users\Veronika\Desktop\EPAM\EPAMXT2016_3\XT2016_3.UserInfo\XT2016_3.UserInfo.Entities\obj\Debug\XT2016_3.UserInfo.Entities.dll
+C:\Users\Veronika\Desktop\EPAM\EPAMXT2016_3\XT2016_3.UserInfo\XT2016_3.UserInfo.Entities\obj\Debug\XT2016_3.UserInfo.Entities.pdb
