@@ -1,2 +1,0 @@
-2017-02-03 19:03:23,037 [7] ERROR SqlImageDao System.InvalidCastException: Specified cast is not valid.
-   at XT2016_3.Auction.SqlDao.SqlImageDao.GetProductImage(Int32 productId) in D:\XT2016_3\Tasks\XT2016_3.Auction\XT2016_3.Auction.SqlDao\SqlImageDao.cs:line 139
