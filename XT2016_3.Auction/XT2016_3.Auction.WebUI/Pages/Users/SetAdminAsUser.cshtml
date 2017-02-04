@@ -1,0 +1,45 @@
+﻿@using XT2016_3.Auction.WebUI.Models
+@using XT2016_3.Auction.Entities
+@{
+    Page.Title = "Set users";
+}
+@if (IsPost)
+{
+    try
+    {
+        int id = int.Parse(Request["id"]);
+        string login = Request["login"];
+        Roles.AddUserToRole(login, Constants.userRoleName);
+    }
+    catch (Exception)
+    {
+        Response.SetStatus(HttpStatusCode.BadRequest);
+    }
+    Response.Redirect("~/Pages/Users/SetAdminAsUser");
+    return;
+}
+<div class="container">
+    @{List<User> admins = new List<User>(LogicProvider.UserLogic.GetAll(Constants.adminRoleName));
+        if (admins.Count == 1)
+        {
+            <div class="container">
+                <div class="alert alert-info">
+                    <p>No available users in database</p>
+                </div>
+            </div>
+            return;
+        }
+        var query = admins.Where(item => !item.Login.Equals(User.Identity.Name));
+    }
+    @foreach (var admin in query)
+    {
+        <div class="col-lg-2 col-sm-4 col-xs-6 text-center">
+            <h3>Login: @admin.Login</h3>
+            <form action="~/Pages/Users/SetAdminAsUser" method="post" class="form-horizontal">
+                <input type="hidden" name="id" value="@admin.Id" />
+                <input type="hidden" name="login" value="@admin.Login" />
+                <button class="btn btn-primary">Set as user<i class="glyphicon glyphicon-arrow-down"></i></button>
+            </form>
+        </div>
+    }
+</div>

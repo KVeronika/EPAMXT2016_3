@@ -1,0 +1,137 @@
+﻿@using XT2016_3.Auction.Entities;
+@using XT2016_3.Auction.WebUI.Models;
+@section styles{
+    <link href="~/Content/Styles/product-block-style.css" rel="stylesheet" />
+}
+@{
+    Page.Title = "ELab Auction";
+    List<Product> products = new List<Product>(LogicProvider.ProductLogic.GetAll());
+    int userId = LogicProvider.UserLogic.GetIdForLogin(User.Identity.Name);
+    List<Product> usersProducts = new List<Product>(LogicProvider.ProductLogic.GetAllForUser(userId));
+    int imageId = 0, count = 0;
+}
+<div class="container">
+    @if (products.Count == 0)
+    {
+        <div class="alert alert-info">
+            <p>No available products in database</p>
+        </div>
+        return;
+    }
+    @foreach (var product in products)
+    {
+        count++;
+        if (product.EndingDate > DateTime.Now)
+        {
+            imageId = LogicProvider.ProductLogic.GetProductImage(product.Id);
+            <div class="col-lg-3 col-sm-6 col-xs-12 text-center product-block">
+                <img src="~/Pages/Images/Image?id=@imageId" class="img-rounded img-responsive" />
+                <h3>@product.Name</h3>
+                <h4>Description: @product.Description</h4>
+                @if (!User.IsInRole(Constants.adminRoleName))
+                {
+                    if (product.BuyNow)
+                    {
+                        <h4>Cost: @product.CurrentRate</h4>
+                        if (!usersProducts.Any(x => x.Id == product.Id))
+                        {
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#@product.Id">Buy now</button>
+                            <div class="modal fade" id="@product.Id" role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Buying</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Are you sure you want to add this product in your shopping cart?</p>
+                                        </div>
+                                        <form action="~/Pages/Products/BuyNow" method="post" class="form-horizontal">
+                                            <input type="hidden" name="productId" value="@product.Id" />
+                                            <input type="hidden" name="userId" value="@userId" />
+                                            <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Yes, I'm sure</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <h5>*It's your product</h5>
+                        }
+                    }
+                    else
+                    {
+                        <h4>Best rate: @product.CurrentRate</h4>
+                        if (!usersProducts.Any(x => x.Id == product.Id))
+                        {
+                            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#@product.Id">Make a bet</button>
+                            <div class="modal fade" id="@product.Id" role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Bet</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="@product.Id-bidForm" class="bidForm form-horizontal">
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-2" for="cost">Cost:</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" autocomplete="off" name="cost" value="@product.CurrentRate" />
+                                                    </div>
+                                                </div>
+                                                <input type="hidden" name="productId" value="@product.Id" />
+                                                <input type="hidden" name="userId" value="@userId" />
+                                                <button type="submit" class="bidBtn btn btn-success"><span class="glyphicon glyphicon-ok"></span> Make a bid</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="endingDate">@product.EndingDate.ToString()</div>
+                            <div class="timer">
+                                <span class="glyphicon glyphicon-time"></span>
+                                <span class="days"></span>
+                                <span class="hours"></span>
+                                <span class="minutes"></span>
+                                <span class="seconds"></span>
+                            </div>
+                        }
+                        else
+                        {
+                            <h5>*It's your product</h5>
+                        }
+                    }
+                }
+                else
+                {
+                    <h4>Cost: @product.CurrentRate</h4>
+                    <div class="endingDate">@product.EndingDate.ToString()</div>
+                    <div class="timer">
+                        <span class="glyphicon glyphicon-time"></span>
+                        <span class="days"></span>
+                        <span class="hours"></span>
+                        <span class="minutes"></span>
+                        <span class="seconds"></span>
+                    </div>
+                }
+            </div>
+            //Исправление наезжания блоков друг на друга
+            if (count % 2 == 0)
+            {
+                <div class="clearfix visible-sm-block"></div>
+            }
+            if (count % 4 == 0)
+            {
+                <div class="clearfix visible-lg-block"></div>
+            }
+        }
+    }
+</div>
+@section scripts{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/additional-methods.min.js"></script>
+    <script src="~/Scripts/customValidation/Bid.js"></script>
+    <script src="~/Scripts/modals/Rate.js"></script>
+}
