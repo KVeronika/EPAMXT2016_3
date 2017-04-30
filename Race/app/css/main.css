@@ -1,0 +1,27 @@
+body{
+    background: url(../../images/trava_2560x2048.jpg);
+}
+.canvas-container canvas{
+    margin: 18px auto;
+    width: 600px;
+    height: 700px;
+    border: 2px solid #000;
+    background-color: #fff;
+}
+.canvas-container, 
+.controlls{
+    display: inline-block;
+}
+.controlls button{
+    display: block;
+    margin-bottom: 10px;
+}
+.controlls .scores{
+    background-color: #fff;
+    margin-bottom: 10px;
+}
+.controlls{
+    position: absolute;
+    top: 30px;
+    left: 800px;
+}

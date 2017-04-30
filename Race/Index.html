@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="app/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="app/css/main.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="canvas-container">
+                <canvas id="mainCanvas" width="500px" height="700px">
+                </canvas>
+            </div>
+            <div class="controlls">
+                 <div class="scores">
+                    <p>SCORES:</p>
+                    <label id="scoreLabel"></label>
+                 </div>
+                 <button class="btn btn-default btn-lg" id="startBtn">Start</button>
+                 <button class="btn btn-default btn-lg" id="stopBtn">Stop</button>
+            </div>
+        </div>
+        <script src="app/js/app.js"></script>  
+        <script src="app/js/model/car.js"></script>              
+        <script src="app/js/model/map.js"></script>              
+        <script src="app/js/view/updateGame.js"></script>              
+        <script src="app/js/controller/gameLogic.js"></script>
+    </body>
+</html>
